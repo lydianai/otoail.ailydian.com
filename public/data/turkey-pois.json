@@ -1,0 +1,50 @@
+{
+  "hgs_points": [
+    { "id": "hgs_1", "name": "FSM Köprüsü HGS", "lat": 41.0474, "lng": 29.0590, "type": "bridge", "price": 58.50 },
+    { "id": "hgs_2", "name": "Yavuz Sultan Selim Köprüsü HGS", "lat": 41.1851, "lng": 29.0981, "type": "bridge", "price": 73.50 },
+    { "id": "hgs_3", "name": "15 Temmuz Şehitler Köprüsü HGS", "lat": 41.0392, "lng": 29.0076, "type": "bridge", "price": 58.50 },
+    { "id": "hgs_4", "name": "Osmangazi Köprüsü HGS", "lat": 40.7102, "lng": 29.5519, "type": "bridge", "price": 225.00 },
+    { "id": "hgs_5", "name": "Çanakkale 1915 Köprüsü HGS", "lat": 40.1973, "lng": 26.4051, "type": "bridge", "price": 340.00 },
+    { "id": "hgs_6", "name": "Eurasia Tüneli HGS", "lat": 40.9813, "lng": 29.0192, "type": "tunnel", "price": 67.50 },
+    { "id": "hgs_7", "name": "Avrasya Tüneli HGS", "lat": 41.0110, "lng": 28.9823, "type": "tunnel", "price": 67.50 },
+    { "id": "hgs_8", "name": "Kuzey Marmara Otoyolu HGS (Odayeri)", "lat": 41.1234, "lng": 28.7892, "type": "highway", "price": 45.00 },
+    { "id": "hgs_9", "name": "TEM Otoyolu HGS (Bahçeşehir)", "lat": 41.0256, "lng": 28.8123, "type": "highway", "price": 35.00 },
+    { "id": "hgs_10", "name": "O-3 Otoyolu HGS (Edirne)", "lat": 41.6751, "lng": 26.5557, "type": "highway", "price": 40.00 }
+  ],
+  "radar_points": [
+    { "id": "radar_1", "name": "TEM Hadımköy Radar", "lat": 41.0789, "lng": 28.7912, "limit": 110, "direction": "both" },
+    { "id": "radar_2", "name": "E-5 Avcılar Radar", "lat": 40.9897, "lng": 28.7234, "limit": 90, "direction": "both" },
+    { "id": "radar_3", "name": "FSM Köprüsü Çıkışı Radar", "lat": 41.0501, "lng": 29.0612, "limit": 80, "direction": "both" },
+    { "id": "radar_4", "name": "Fatih Sultan Mehmet Blv Radar", "lat": 41.0623, "lng": 28.8934, "limit": 70, "direction": "both" },
+    { "id": "radar_5", "name": "D-100 Maltepe Radar", "lat": 40.9234, "lng": 29.1456, "limit": 90, "direction": "both" },
+    { "id": "radar_6", "name": "Ankara Yolu Sakarya Radar", "lat": 40.7834, "lng": 30.3923, "limit": 120, "direction": "both" },
+    { "id": "radar_7", "name": "İzmir Otoyolu Manisa Radar", "lat": 38.6123, "lng": 27.4289, "limit": 120, "direction": "both" },
+    { "id": "radar_8", "name": "Antalya Yolu Burdur Radar", "lat": 37.4567, "lng": 30.2834, "limit": 110, "direction": "both" },
+    { "id": "radar_9", "name": "Adana Yolu Pozantı Radar", "lat": 37.7623, "lng": 34.8745, "limit": 90, "direction": "both" },
+    { "id": "radar_10", "name": "Çanakkale Yolu Tekirdağ Radar", "lat": 40.9778, "lng": 27.5123, "limit": 110, "direction": "both" }
+  ],
+  "gas_stations": [
+    { "id": "gas_1", "name": "Shell Maslak", "lat": 41.1056, "lng": 29.0167, "brand": "Shell", "diesel": 43.50, "gasoline": 44.25, "lpg": 21.80 },
+    { "id": "gas_2", "name": "Opet Levent", "lat": 41.0789, "lng": 29.0089, "brand": "Opet", "diesel": 43.45, "gasoline": 44.20, "lpg": 21.75 },
+    { "id": "gas_3", "name": "BP Mecidiyeköy", "lat": 41.0656, "lng": 28.9934, "brand": "BP", "diesel": 43.55, "gasoline": 44.30, "lpg": 21.85 },
+    { "id": "gas_4", "name": "PetrolOfisi Beşiktaş", "lat": 41.0425, "lng": 29.0078, "brand": "PO", "diesel": 43.48, "gasoline": 44.23, "lpg": 21.78 },
+    { "id": "gas_5", "name": "Total Kadıköy", "lat": 40.9895, "lng": 29.0234, "brand": "Total", "diesel": 43.52, "gasoline": 44.27, "lpg": 21.82 },
+    { "id": "gas_6", "name": "Shell Ataşehir", "lat": 40.9889, "lng": 29.1234, "brand": "Shell", "diesel": 43.50, "gasoline": 44.25, "lpg": 21.80 },
+    { "id": "gas_7", "name": "Opet Kartal", "lat": 40.9012, "lng": 29.1923, "brand": "Opet", "diesel": 43.45, "gasoline": 44.20, "lpg": 21.75 },
+    { "id": "gas_8", "name": "BP Bakırköy", "lat": 40.9812, "lng": 28.8734, "brand": "BP", "diesel": 43.55, "gasoline": 44.30, "lpg": 21.85 },
+    { "id": "gas_9", "name": "Aytemiz Beylikdüzü", "lat": 40.9923, "lng": 28.6412, "brand": "Aytemiz", "diesel": 43.40, "gasoline": 44.15, "lpg": 21.70 },
+    { "id": "gas_10", "name": "PetrolOfisi Şişli", "lat": 41.0634, "lng": 28.9889, "brand": "PO", "diesel": 43.48, "gasoline": 44.23, "lpg": 21.78 }
+  ],
+  "ev_charging": [
+    { "id": "ev_1", "name": "SHARZ İstanbul Havalimanı", "lat": 41.2753, "lng": 28.7519, "provider": "SHARZ", "power": 150, "plugs": ["CCS2", "CHAdeMO"], "price": 12.50, "available": true },
+    { "id": "ev_2", "name": "ZES Zorlu Center", "lat": 41.0656, "lng": 29.0045, "provider": "ZES", "power": 50, "plugs": ["Type2", "CCS2"], "price": 8.90, "available": true },
+    { "id": "ev_3", "name": "EŞARJ Vadistanbul AVM", "lat": 41.1089, "lng": 28.7823, "provider": "EŞARJ", "power": 22, "plugs": ["Type2"], "price": 6.50, "available": false },
+    { "id": "ev_4", "name": "Voltrun Akmerkez", "lat": 41.0812, "lng": 29.0234, "provider": "Voltrun", "power": 120, "plugs": ["CCS2"], "price": 11.20, "available": true },
+    { "id": "ev_5", "name": "SHARZ Mall of Istanbul", "lat": 41.0745, "lng": 28.7912, "provider": "SHARZ", "power": 150, "plugs": ["CCS2", "CHAdeMO"], "price": 12.50, "available": true },
+    { "id": "ev_6", "name": "ZES Cevahir AVM", "lat": 41.0634, "lng": 28.9889, "provider": "ZES", "power": 50, "plugs": ["Type2", "CCS2"], "price": 8.90, "available": true },
+    { "id": "ev_7", "name": "EŞARJ Forum Istanbul", "lat": 40.9923, "lng": 28.9134, "provider": "EŞARJ", "power": 22, "plugs": ["Type2"], "price": 6.50, "available": true },
+    { "id": "ev_8", "name": "Voltrun Capacity AVM", "lat": 40.9856, "lng": 29.1234, "provider": "Voltrun", "power": 120, "plugs": ["CCS2"], "price": 11.20, "available": false },
+    { "id": "ev_9", "name": "SHARZ İstMarina AVM", "lat": 40.9123, "lng": 29.1789, "provider": "SHARZ", "power": 150, "plugs": ["CCS2", "CHAdeMO"], "price": 12.50, "available": true },
+    { "id": "ev_10", "name": "ZES Palladium AVM", "lat": 40.9934, "lng": 29.0789, "provider": "ZES", "power": 50, "plugs": ["Type2", "CCS2"], "price": 8.90, "available": true }
+  ]
+}

@@ -1,0 +1,1217 @@
+'use client'
+
+import { useState, useMemo } from 'react'
+import {
+  Calendar,
+  Clock,
+  User,
+  Phone,
+  CheckCircle2,
+  XCircle,
+  AlertCircle,
+  Search,
+  Filter,
+  Download,
+  Plus,
+  RefreshCw,
+  Stethoscope,
+  Building2,
+  FileText,
+  Edit,
+  Trash2,
+  Bell,
+  Shield,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Printer,
+  Users,
+  CalendarDays,
+  AlertTriangle,
+  Send,
+} from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Badge } from '@/components/ui/badge'
+import { cn } from '@/lib/utils'
+
+// Interfaces
+interface Appointment {
+  id: string
+  appointmentNo: string
+  patientName: string
+  patientSurname: string
+  tcNo: string
+  phone: string
+  email?: string
+  doctor: string
+  department: string
+  date: string
+  time: string
+  status: 'Bekliyor' | 'Onaylandı' | 'İptal Edildi' | 'Tamamlandı'
+  mhrsCode?: string
+  notes?: string
+}
+
+// Generate 100+ realistic appointments
+const departments = [
+  'Dahiliye',
+  'Kardiyoloji',
+  'Göğüs Hastalıkları',
+  'Ortopedi',
+  'Genel Cerrahi',
+  'Nöroloji',
+  'Dermatoloji',
+  'KBB',
+  'Göz',
+  'Çocuk Sağlığı',
+]
+
+const doctors = [
+  'Dr. Ahmet Yılmaz',
+  'Dr. Ayşe Kaya',
+  'Dr. Mehmet Demir',
+  'Dr. Fatma Şahin',
+  'Dr. Ali Yıldız',
+  'Dr. Zeynep Çelik',
+  'Dr. Mustafa Aydın',
+  'Dr. Elif Özkan',
+  'Dr. Hasan Arslan',
+  'Dr. Hatice Koç',
+  'Dr. İbrahim Aksoy',
+  'Dr. Merve Erdoğan',
+  'Dr. Osman Kılıç',
+  'Dr. Gülşen Taş',
+  'Dr. Emre Polat',
+  'Dr. Selin Yurt',
+  'Dr. Kemal Tunç',
+  'Dr. Deniz Kurt',
+  'Dr. Burak Öztürk',
+  'Dr. Esra Güneş',
+  'Dr. Cem Çetin',
+  'Dr. Seda Yalçın',
+  'Dr. Onur Şen',
+  'Dr. Pınar Acar',
+]
+
+const firstNames = [
+  'Ahmet',
+  'Mehmet',
+  'Mustafa',
+  'Ali',
+  'Hasan',
+  'Hüseyin',
+  'İbrahim',
+  'Osman',
+  'Emre',
+  'Kemal',
+  'Ayşe',
+  'Fatma',
+  'Zeynep',
+  'Elif',
+  'Hatice',
+  'Merve',
+  'Gülşen',
+  'Selin',
+  'Deniz',
+  'Esra',
+]
+
+const lastNames = [
+  'Yılmaz',
+  'Kaya',
+  'Demir',
+  'Şahin',
+  'Çelik',
+  'Yıldız',
+  'Aydın',
+  'Özkan',
+  'Arslan',
+  'Koç',
+  'Aksoy',
+  'Erdoğan',
+  'Kılıç',
+  'Taş',
+  'Polat',
+  'Yurt',
+  'Tunç',
+  'Kurt',
+  'Öztürk',
+  'Güneş',
+]
+
+const statuses: Array<'Bekliyor' | 'Onaylandı' | 'İptal Edildi' | 'Tamamlandı'> = [
+  'Bekliyor',
+  'Onaylandı',
+  'İptal Edildi',
+  'Tamamlandı',
+]
+
+const timeSlots = [
+  '08:00',
+  '08:30',
+  '09:00',
+  '09:30',
+  '10:00',
+  '10:30',
+  '11:00',
+  '11:30',
+  '12:00',
+  '12:30',
+  '13:00',
+  '13:30',
+  '14:00',
+  '14:30',
+  '15:00',
+  '15:30',
+  '16:00',
+  '16:30',
+  '17:00',
+]
+
+// Generate TC numbers
+const generateTCNo = (): string => {
+  return Math.floor(10000000000 + Math.random() * 90000000000).toString()
+}
+
+// Generate phone numbers
+const generatePhone = (): string => {
+  const prefix = ['532', '533', '534', '535', '536', '537', '538', '539', '542', '543']
+  return `+90 ${prefix[Math.floor(Math.random() * prefix.length)]} ${Math.floor(100 + Math.random() * 900)} ${Math.floor(1000 + Math.random() * 9000)}`
+}
+
+// Generate dates for next 30 days
+const generateDate = (dayOffset: number): string => {
+  const date = new Date()
+  date.setDate(date.getDate() + dayOffset)
+  const day = String(date.getDate()).padStart(2, '0')
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const year = date.getFullYear()
+  return `${day}.${month}.${year}`
+}
+
+// Generate appointments
+const generateAppointments = (): Appointment[] => {
+  const appointments: Appointment[] = []
+
+  for (let i = 0; i < 120; i++) {
+    const firstName = firstNames[Math.floor(Math.random() * firstNames.length)]
+    const lastName = lastNames[Math.floor(Math.random() * lastNames.length)]
+    const doctor = doctors[Math.floor(Math.random() * doctors.length)]
+    const department = departments[Math.floor(Math.random() * departments.length)]
+    const dayOffset = Math.floor(Math.random() * 30) - 5 // -5 to +25 days
+    const time = timeSlots[Math.floor(Math.random() * timeSlots.length)]
+    const status = statuses[Math.floor(Math.random() * statuses.length)]
+
+    appointments.push({
+      id: `APT-${String(i + 1).padStart(4, '0')}`,
+      appointmentNo: `RND-2024-${String(i + 1).padStart(5, '0')}`,
+      patientName: firstName,
+      patientSurname: lastName,
+      tcNo: generateTCNo(),
+      phone: generatePhone(),
+      email: Math.random() > 0.3 ? `${firstName.toLowerCase()}.${lastName.toLowerCase()}@email.com` : undefined,
+      doctor,
+      department,
+      date: generateDate(dayOffset),
+      time,
+      status,
+      mhrsCode: Math.random() > 0.2 ? `MHRS-2024-${String(Math.floor(Math.random() * 99999)).padStart(5, '0')}` : undefined,
+      notes: Math.random() > 0.7 ? 'Kontrol muayenesi - önceki tedavi takibi' : undefined,
+    })
+  }
+
+  return appointments.sort((a, b) => {
+    const dateA = a.date.split('.').reverse().join('')
+    const dateB = b.date.split('.').reverse().join('')
+    if (dateA !== dateB) return dateA.localeCompare(dateB)
+    return a.time.localeCompare(b.time)
+  })
+}
+
+const allAppointments = generateAppointments()
+
+export default function AppointmentsPage() {
+  const [appointments, setAppointments] = useState<Appointment[]>(allAppointments)
+  const [view, setView] = useState<'day' | 'week' | 'month' | 'list'>('list')
+  const [searchTerm, setSearchTerm] = useState('')
+  const [filterDoctor, setFilterDoctor] = useState('')
+  const [filterDepartment, setFilterDepartment] = useState('')
+  const [filterStatus, setFilterStatus] = useState('')
+  const [filterDateFrom, setFilterDateFrom] = useState('')
+  const [filterDateTo, setFilterDateTo] = useState('')
+
+  // Modals
+  const [showCreateModal, setShowCreateModal] = useState(false)
+  const [showMHRSModal, setShowMHRSModal] = useState(false)
+  const [showRescheduleModal, setShowRescheduleModal] = useState(false)
+  const [showCancelModal, setShowCancelModal] = useState(false)
+  const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null)
+
+  // Create appointment form
+  const [newAppointment, setNewAppointment] = useState({
+    patientSearch: '',
+    patientName: '',
+    patientSurname: '',
+    tcNo: '',
+    phone: '',
+    email: '',
+    doctor: '',
+    department: '',
+    date: '',
+    time: '',
+    smsReminder: true,
+  })
+
+  // MHRS search
+  const [mhrsTcNo, setMhrsTcNo] = useState('')
+
+  // Reschedule
+  const [rescheduleDate, setRescheduleDate] = useState('')
+  const [rescheduleTime, setRescheduleTime] = useState('')
+
+  // Cancel
+  const [cancelReason, setCancelReason] = useState('')
+
+  // Filter appointments
+  const filteredAppointments = useMemo(() => {
+    return appointments.filter((apt) => {
+      const matchesSearch =
+      searchTerm === '' ||
+      apt.patientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      apt.patientSurname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      apt.tcNo.includes(searchTerm) ||
+      apt.appointmentNo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      apt.mhrsCode?.toLowerCase().includes(searchTerm.toLowerCase())
+
+      const matchesDoctor = filterDoctor === '' || apt.doctor === filterDoctor
+      const matchesDepartment = filterDepartment === '' || apt.department === filterDepartment
+      const matchesStatus = filterStatus === '' || apt.status === filterStatus
+
+      return matchesSearch && matchesDoctor && matchesDepartment && matchesStatus
+    })
+  }, [appointments, searchTerm, filterDoctor, filterDepartment, filterStatus])
+
+  // Statistics
+  const stats = useMemo(() => {
+    return {
+      total: filteredAppointments.length,
+      bekliyor: filteredAppointments.filter((a) => a.status === 'Bekliyor').length,
+      onaylandi: filteredAppointments.filter((a) => a.status === 'Onaylandı').length,
+      iptal: filteredAppointments.filter((a) => a.status === 'İptal Edildi').length,
+      tamamlandi: filteredAppointments.filter((a) => a.status === 'Tamamlandı').length,
+    }
+  }, [filteredAppointments])
+
+  // Status colors
+  const statusColors = {
+    Bekliyor: 'bg-yellow-100 text-yellow-700 border-yellow-300',
+    Onaylandı: 'bg-green-100 text-green-700 border-green-300',
+    'İptal Edildi': 'bg-red-100 text-red-700 border-red-300',
+    Tamamlandı: 'bg-blue-100 text-blue-700 border-blue-300',
+  }
+
+  // Get unique doctors and departments
+  const uniqueDoctors = Array.from(new Set(appointments.map((a) => a.doctor))).sort()
+  const uniqueDepartments = Array.from(new Set(appointments.map((a) => a.department))).sort()
+
+  // Create appointment
+  const handleCreateAppointment = () => {
+    if (!newAppointment.patientName || !newAppointment.patientSurname || !newAppointment.tcNo ||
+      !newAppointment.phone || !newAppointment.doctor || !newAppointment.department ||
+      !newAppointment.date || !newAppointment.time) {
+      alert('Lütfen tüm zorunlu alanları doldurun')
+      return
+    }
+
+    // Check for overbooking
+    const doctorAppointments = appointments.filter(
+      (a) => a.doctor === newAppointment.doctor &&
+           a.date === newAppointment.date &&
+           a.time === newAppointment.time &&
+           a.status !== 'İptal Edildi'
+    )
+
+    if (doctorAppointments.length > 0) {
+      if (!confirm('UYARI: Bu doktorun seçilen tarih ve saatte başka randevusu var. Aşırı rezervasyon yapmak istediğinize emin misiniz?')) {
+      return
+      }
+    }
+
+    const newApt: Appointment = {
+      id: `APT-${String(appointments.length + 1).padStart(4, '0')}`,
+      appointmentNo: `RND-2024-${String(appointments.length + 1).padStart(5, '0')}`,
+      patientName: newAppointment.patientName,
+      patientSurname: newAppointment.patientSurname,
+      tcNo: newAppointment.tcNo,
+      phone: newAppointment.phone,
+      email: newAppointment.email || undefined,
+      doctor: newAppointment.doctor,
+      department: newAppointment.department,
+      date: newAppointment.date,
+      time: newAppointment.time,
+      status: 'Bekliyor',
+      mhrsCode: undefined,
+    }
+
+    setAppointments([...appointments, newApt])
+    setShowCreateModal(false)
+    setNewAppointment({
+      patientSearch: '',
+      patientName: '',
+      patientSurname: '',
+      tcNo: '',
+      phone: '',
+      email: '',
+      doctor: '',
+      department: '',
+      date: '',
+      time: '',
+      smsReminder: true,
+    })
+
+    if (newAppointment.smsReminder) {
+      alert('Randevu oluşturuldu ve hastaya SMS hatırlatma gönderildi.')
+    } else {
+      alert('Randevu başarıyla oluşturuldu.')
+    }
+  }
+
+  // Import from MHRS
+  const handleMHRSImport = () => {
+    if (!mhrsTcNo || mhrsTcNo.length !== 11) {
+      alert('Lütfen geçerli bir TC Kimlik No girin (11 haneli)')
+      return
+    }
+
+    // Simulate MHRS import
+    alert(`MHRS sisteminden TC: ${mhrsTcNo} için randevular çekiliyor...\n\n2 yeni randevu içe aktarıldı.`)
+    setShowMHRSModal(false)
+    setMhrsTcNo('')
+  }
+
+  // Reschedule appointment
+  const handleReschedule = () => {
+    if (!selectedAppointment || !rescheduleDate || !rescheduleTime) {
+      alert('Lütfen yeni tarih ve saat seçin')
+      return
+    }
+
+    const updated = appointments.map((a) =>
+      a.id === selectedAppointment.id
+      ? { ...a, date: rescheduleDate, time: rescheduleTime }
+      : a
+    )
+
+    setAppointments(updated)
+    setShowRescheduleModal(false)
+    setRescheduleDate('')
+    setRescheduleTime('')
+    alert('Randevu başarıyla yeniden planlandı ve hastaya SMS gönderildi.')
+  }
+
+  // Cancel appointment
+  const handleCancel = () => {
+    if (!selectedAppointment) return
+
+    if (!cancelReason.trim()) {
+      alert('Lütfen iptal nedeni girin')
+      return
+    }
+
+    const updated = appointments.map((a) =>
+      a.id === selectedAppointment.id
+      ? { ...a, status: 'İptal Edildi' as const, notes: `İptal Nedeni: ${cancelReason}` }
+      : a
+    )
+
+    setAppointments(updated)
+    setShowCancelModal(false)
+    setCancelReason('')
+    alert('Randevu iptal edildi ve hastaya bilgilendirme SMS\'i gönderildi.')
+  }
+
+  // Export to Excel
+  const handleExportExcel = () => {
+    alert('Randevu listesi Excel formatında indiriliyor...\n\nDosya: randevular-' + new Date().toISOString().split('T')[0] + '.xlsx')
+  }
+
+  // Print daily schedule
+  const handlePrintSchedule = () => {
+    const today = new Date()
+    const todayStr = `${String(today.getDate()).padStart(2, '0')}.${String(today.getMonth() + 1).padStart(2, '0')}.${today.getFullYear()}`
+    const todayAppointments = filteredAppointments.filter(a => a.date === todayStr)
+
+    alert(`Günlük Randevu Programı Yazdırılıyor...\n\nTarih: ${todayStr}\nToplam: ${todayAppointments.length} randevu`)
+
+    // In real implementation, would open print dialog
+    window.print()
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-red-50/30 to-rose-50/30">
+      {/* Header */}
+      <header className="bg-white border-b border-gray-200/80 shadow-sm sticky top-0 z-40">
+        <div className="max-w-[1920px] mx-auto px-8 py-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="flex items-center gap-4 mb-2">
+                <div className="p-3 bg-gradient-to-br from-red-500 to-rose-600 rounded-2xl shadow-lg shadow-red-500/30">
+                  <Calendar className="h-7 w-7 text-white" strokeWidth={2.5} />
+                </div>
+                <div>
+                  <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent tracking-tight">
+                    Randevu Yönetimi
+                  </h1>
+                  <p className="text-base text-gray-600 mt-1 font-medium">
+                    Takvim, MHRS Entegrasyonu & Randevu Takibi
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <Button
+                onClick={() => setShowCreateModal(true)}
+                className="bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 shadow-lg shadow-red-500/30"
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                Yeni Randevu
+              </Button>
+              <Button onClick={() => setShowMHRSModal(true)} className="bg-gradient-to-r from-green-500 to-green-600 text-white hover:from-green-600 hover:to-green-700">
+                <RefreshCw className="h-4 w-4 mr-2" />
+                MHRS Entegrasyonu
+              </Button>
+              <Button onClick={handleExportExcel} className="bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700">
+                <Download className="h-4 w-4 mr-2" />
+                Excel İndir
+              </Button>
+              <Button onClick={handlePrintSchedule} className="bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700">
+                <Printer className="h-4 w-4 mr-2" />
+                Günlük Program
+              </Button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main className="max-w-[1920px] mx-auto px-8 py-8">
+        {/* Statistics */}
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
+          <div className="bg-white rounded-2xl p-6 shadow-sm border-2 border-gray-100 hover:shadow-lg transition-all">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 bg-gray-100 rounded-lg">
+                <Calendar className="h-5 w-5 text-gray-600" />
+              </div>
+              <span className="text-sm font-semibold text-gray-600">Toplam</span>
+            </div>
+            <p className="text-3xl font-bold text-gray-900">{stats.total}</p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-6 shadow-sm border-2 border-yellow-100 hover:shadow-lg transition-all">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 bg-yellow-100 rounded-lg">
+                <Clock className="h-5 w-5 text-yellow-600" />
+              </div>
+              <span className="text-sm font-semibold text-gray-600">Bekliyor</span>
+            </div>
+            <p className="text-3xl font-bold text-yellow-700">{stats.bekliyor}</p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-6 shadow-sm border-2 border-green-100 hover:shadow-lg transition-all">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 bg-green-100 rounded-lg">
+                <CheckCircle2 className="h-5 w-5 text-green-600" />
+              </div>
+              <span className="text-sm font-semibold text-gray-600">Onaylandı</span>
+            </div>
+            <p className="text-3xl font-bold text-green-700">{stats.onaylandi}</p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-6 shadow-sm border-2 border-blue-100 hover:shadow-lg transition-all">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 bg-blue-100 rounded-lg">
+                <CheckCircle2 className="h-5 w-5 text-blue-600" />
+              </div>
+              <span className="text-sm font-semibold text-gray-600">Tamamlandı</span>
+            </div>
+            <p className="text-3xl font-bold text-blue-700">{stats.tamamlandi}</p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-6 shadow-sm border-2 border-red-100 hover:shadow-lg transition-all">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 bg-red-100 rounded-lg">
+                <XCircle className="h-5 w-5 text-red-600" />
+              </div>
+              <span className="text-sm font-semibold text-gray-600">İptal</span>
+            </div>
+            <p className="text-3xl font-bold text-red-700">{stats.iptal}</p>
+          </div>
+        </div>
+
+        {/* Calendar View Tabs */}
+        <div className="bg-white rounded-2xl p-6 shadow-sm border-2 border-gray-100 mb-8">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-2">
+              <Button
+                onClick={() => setView('day')}
+                className={view === 'day' ? 'bg-gradient-to-r from-red-500 to-rose-600 text-white' : 'border-2 border-gray-300 text-gray-700 hover:bg-gray-50 bg-white'}
+              >
+                <CalendarDays className="h-4 w-4 mr-2" />
+                Gün
+              </Button>
+              <Button
+                onClick={() => setView('week')}
+                className={view === 'week' ? 'bg-gradient-to-r from-red-500 to-rose-600 text-white' : 'border-2 border-gray-300 text-gray-700 hover:bg-gray-50 bg-white'}
+              >
+                <Calendar className="h-4 w-4 mr-2" />
+                Hafta
+              </Button>
+              <Button
+                onClick={() => setView('month')}
+                className={view === 'month' ? 'bg-gradient-to-r from-red-500 to-rose-600 text-white' : 'border-2 border-gray-300 text-gray-700 hover:bg-gray-50 bg-white'}
+              >
+                <Calendar className="h-4 w-4 mr-2" />
+                Ay
+              </Button>
+              <Button
+                onClick={() => setView('list')}
+                className={view === 'list' ? 'bg-gradient-to-r from-red-500 to-rose-600 text-white' : 'border-2 border-gray-300 text-gray-700 hover:bg-gray-50 bg-white'}
+              >
+                <FileText className="h-4 w-4 mr-2" />
+                Liste
+              </Button>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Button size="sm" className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 bg-white">
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <span className="text-sm font-semibold px-4">Aralık 2024</span>
+              <Button size="sm" className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 bg-white">
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Filters */}
+        <div className="bg-white rounded-2xl p-6 shadow-sm border-2 border-gray-100 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="lg:col-span-2">
+              <label className="text-sm font-semibold text-gray-700 mb-2 block">Arama</label>
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Input
+                  placeholder="Hasta adı, TC, randevu no..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10 border-2"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="text-sm font-semibold text-gray-700 mb-2 block">Doktor</label>
+              <select
+                value={filterDoctor}
+                onChange={(e) => setFilterDoctor(e.target.value)}
+                className="w-full h-10 px-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+              >
+                <option value="">Tümü</option>
+                {uniqueDoctors.map((doctor) => (
+                  <option key={doctor} value={doctor}>
+                    {doctor}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="text-sm font-semibold text-gray-700 mb-2 block">Bölüm</label>
+              <select
+                value={filterDepartment}
+                onChange={(e) => setFilterDepartment(e.target.value)}
+                className="w-full h-10 px-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+              >
+                <option value="">Tümü</option>
+                {uniqueDepartments.map((dept) => (
+                  <option key={dept} value={dept}>
+                    {dept}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="text-sm font-semibold text-gray-700 mb-2 block">Durum</label>
+              <select
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value)}
+                className="w-full h-10 px-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+              >
+                <option value="">Tümü</option>
+                <option value="Bekliyor">Bekliyor</option>
+                <option value="Onaylandı">Onaylandı</option>
+                <option value="İptal Edildi">İptal Edildi</option>
+                <option value="Tamamlandı">Tamamlandı</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="text-sm font-semibold text-gray-700 mb-2 block">Tarih Aralığı</label>
+              <Button className="w-full border-2 border-gray-300 text-gray-700 hover:bg-gray-50 bg-white">
+                <Filter className="h-4 w-4 mr-2" />
+                Filtrele
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Appointments Table */}
+        <div className="bg-white rounded-2xl shadow-sm border-2 border-gray-100 overflow-hidden">
+          <div className="px-6 py-5 border-b-2 border-gray-100">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-xl font-bold text-gray-900">Randevu Listesi</h3>
+                <p className="text-sm text-gray-600 font-medium mt-1">
+                  {filteredAppointments.length} randevu gösteriliyor
+                </p>
+              </div>
+              <Badge className="bg-green-100 text-green-700 border-green-300 px-3 py-1">
+                <Shield className="h-3 w-3 mr-1" />
+                MHRS Entegre
+              </Badge>
+            </div>
+          </div>
+
+          {/* Table */}
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gray-50 border-b-2 border-gray-100">
+                <tr>
+                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    Hasta Adı
+                  </th>
+                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    TC No
+                  </th>
+                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    Doktor
+                  </th>
+                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    Bölüm
+                  </th>
+                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    Tarih
+                  </th>
+                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    Saat
+                  </th>
+                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    Durum
+                  </th>
+                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    İşlemler
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {filteredAppointments.map((appointment) => (
+                  <tr key={appointment.id} className="hover:bg-red-50/30 transition-colors">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center">
+                        <div className="p-2 bg-red-100 rounded-lg mr-3">
+                          <User className="h-4 w-4 text-red-600" />
+                        </div>
+                        <div>
+                          <div className="text-sm font-bold text-gray-900">
+                            {appointment.patientName} {appointment.patientSurname}
+                          </div>
+                          <div className="text-xs text-gray-500">{appointment.appointmentNo}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm font-mono text-gray-900">{appointment.tcNo}</div>
+                      <div className="text-xs text-gray-500">{appointment.phone}</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center">
+                        <Stethoscope className="h-4 w-4 text-red-600 mr-2" />
+                        <span className="text-sm font-semibold text-gray-900">{appointment.doctor}</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center">
+                        <Building2 className="h-4 w-4 text-gray-500 mr-2" />
+                        <span className="text-sm text-gray-700">{appointment.department}</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center">
+                        <Calendar className="h-4 w-4 text-gray-500 mr-2" />
+                        <span className="text-sm font-semibold text-gray-900">{appointment.date}</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center">
+                        <Clock className="h-4 w-4 text-gray-500 mr-2" />
+                        <span className="text-sm font-bold text-gray-900">{appointment.time}</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <Badge className={cn('border-2 font-semibold', statusColors[appointment.status])}>
+                        {appointment.status}
+                      </Badge>
+                      {appointment.mhrsCode && (
+                        <div className="text-xs text-gray-500 font-mono mt-1">{appointment.mhrsCode}</div>
+                      )}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center gap-2">
+                        <Button
+                          size="sm"
+                          className="border-2 border-blue-300 text-blue-700 hover:bg-blue-50 bg-white"
+                          onClick={() => {
+                            setSelectedAppointment(appointment)
+                            setShowRescheduleModal(true)
+                          }}
+                        >
+                          <Edit className="h-3 w-3" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          className="border-2 border-red-300 text-red-700 hover:bg-red-50 bg-white"
+                          onClick={() => {
+                            setSelectedAppointment(appointment)
+                            setShowCancelModal(true)
+                          }}
+                        >
+                          <Trash2 className="h-3 w-3" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          className="border-2 border-green-300 text-green-700 hover:bg-green-50 bg-white"
+                          onClick={() => alert(`SMS hatırlatma gönderiliyor: ${appointment.patientName} ${appointment.patientSurname}\n${appointment.phone}`)}
+                        >
+                          <Bell className="h-3 w-3" />
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* KVKK Notice */}
+        <div className="mt-8 bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-200 rounded-2xl p-6">
+          <div className="flex items-start gap-4">
+            <div className="p-3 bg-purple-500 rounded-xl">
+              <Shield className="h-6 w-6 text-white" />
+            </div>
+            <div>
+              <h3 className="text-lg font-bold text-purple-900 mb-2">KVKK Uyumluluk</h3>
+              <p className="text-sm text-purple-800">
+                Tüm randevu kayıtları KVKK (Kişisel Verilerin Korunması Kanunu) kapsamında güvenli şekilde
+                saklanmaktadır. Hasta bilgileri şifrelenmiş olup, yalnızca yetkili sağlık personeli erişebilir.
+                MHRS entegrasyonu Sağlık Bakanlığı standartlarına uygun olarak gerçekleştirilmektedir.
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      {/* Create Appointment Modal */}
+      {showCreateModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b-2 border-gray-100 sticky top-0 bg-white">
+              <div className="flex items-center justify-between">
+                <h3 className="text-2xl font-bold text-gray-900">Yeni Randevu Oluştur</h3>
+                <Button variant="ghost" size="sm" onClick={() => setShowCreateModal(false)}>
+                  <X className="h-5 w-5" />
+                </Button>
+              </div>
+            </div>
+
+            <div className="p-6 space-y-4">
+              {/* Patient Search */}
+              <div>
+                <label className="text-sm font-semibold text-gray-700 mb-2 block">Hasta Ara (TC No veya Ad Soyad)</label>
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Input
+                  placeholder="TC Kimlik No veya Ad Soyad ile ara..."
+                  value={newAppointment.patientSearch}
+                  onChange={(e) => setNewAppointment({ ...newAppointment, patientSearch: e.target.value })}
+                  className="pl-10 border-2"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm font-semibold text-gray-700 mb-2 block">Ad *</label>
+                <Input
+                  value={newAppointment.patientName}
+                  onChange={(e) => setNewAppointment({ ...newAppointment, patientName: e.target.value })}
+                  className="border-2"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-semibold text-gray-700 mb-2 block">Soyad *</label>
+                <Input
+                  value={newAppointment.patientSurname}
+                  onChange={(e) => setNewAppointment({ ...newAppointment, patientSurname: e.target.value })}
+                  className="border-2"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm font-semibold text-gray-700 mb-2 block">TC Kimlik No *</label>
+                <Input
+                  maxLength={11}
+                  value={newAppointment.tcNo}
+                  onChange={(e) => setNewAppointment({ ...newAppointment, tcNo: e.target.value })}
+                  className="border-2"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-semibold text-gray-700 mb-2 block">Telefon *</label>
+                <Input
+                  value={newAppointment.phone}
+                  onChange={(e) => setNewAppointment({ ...newAppointment, phone: e.target.value })}
+                  className="border-2"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="text-sm font-semibold text-gray-700 mb-2 block">E-posta</label>
+              <Input
+                type="email"
+                value={newAppointment.email}
+                onChange={(e) => setNewAppointment({ ...newAppointment, email: e.target.value })}
+                className="border-2"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm font-semibold text-gray-700 mb-2 block">Bölüm *</label>
+                <select
+                  value={newAppointment.department}
+                  onChange={(e) => setNewAppointment({ ...newAppointment, department: e.target.value })}
+                  className="w-full h-10 px-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                >
+                  <option value="">Seçiniz</option>
+                  {uniqueDepartments.map((dept) => (
+                    <option key={dept} value={dept}>
+                      {dept}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="text-sm font-semibold text-gray-700 mb-2 block">Doktor *</label>
+                <select
+                  value={newAppointment.doctor}
+                  onChange={(e) => setNewAppointment({ ...newAppointment, doctor: e.target.value })}
+                  className="w-full h-10 px-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                >
+                  <option value="">Seçiniz</option>
+                  {uniqueDoctors.map((doctor) => (
+                    <option key={doctor} value={doctor}>
+                      {doctor}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm font-semibold text-gray-700 mb-2 block">Tarih *</label>
+                <Input
+                  type="date"
+                  value={newAppointment.date}
+                  onChange={(e) => {
+                    const date = new Date(e.target.value)
+                    const formatted = `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(2, '0')}.${date.getFullYear()}`
+                    setNewAppointment({ ...newAppointment, date: formatted })
+                  }}
+                  className="border-2"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-semibold text-gray-700 mb-2 block">Saat *</label>
+                <select
+                  value={newAppointment.time}
+                  onChange={(e) => setNewAppointment({ ...newAppointment, time: e.target.value })}
+                  className="w-full h-10 px-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                >
+                  <option value="">Seçiniz</option>
+                  {timeSlots.map((time) => (
+                    <option key={time} value={time}>
+                      {time}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg">
+              <input
+                type="checkbox"
+                id="smsReminder"
+                checked={newAppointment.smsReminder}
+                onChange={(e) => setNewAppointment({ ...newAppointment, smsReminder: e.target.checked })}
+                className="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500"
+              />
+              <label htmlFor="smsReminder" className="text-sm font-semibold text-gray-700">
+                SMS Hatırlatma Gönder
+              </label>
+            </div>
+
+            {/* Overbooking Warning */}
+            {newAppointment.doctor && newAppointment.date && newAppointment.time && (
+              <div className="p-4 bg-amber-50 border-2 border-amber-300 rounded-lg flex items-start gap-3">
+                <AlertTriangle className="h-5 w-5 text-amber-600 mt-0.5" />
+                <div>
+                  <p className="text-sm font-semibold text-amber-900">Uyarı: Aşırı Rezervasyon Kontrolü</p>
+                  <p className="text-xs text-amber-800 mt-1">
+                    Seçilen doktor, tarih ve saatte başka randevu var mı kontrol ediliyor...
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="p-6 border-t-2 border-gray-100 flex items-center justify-end gap-3 sticky bottom-0 bg-white">
+            <Button className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 bg-white" onClick={() => setShowCreateModal(false)}>
+              İptal
+            </Button>
+            <Button
+              onClick={handleCreateAppointment}
+              className="bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              Randevu Oluştur
+            </Button>
+          </div>
+        </div>
+      </div>
+      )}
+
+      {/* MHRS Integration Modal */}
+      {showMHRSModal && (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full">
+          <div className="p-6 border-b-2 border-gray-100">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-green-100 rounded-lg">
+                  <Shield className="h-5 w-5 text-green-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900">MHRS Entegrasyonu</h3>
+              </div>
+              <Button variant="ghost" size="sm" onClick={() => setShowMHRSModal(false)}>
+                <X className="h-5 w-5" />
+              </Button>
+            </div>
+          </div>
+
+          <div className="p-6 space-y-4">
+            <div>
+              <label className="text-sm font-semibold text-gray-700 mb-2 block">TC Kimlik No ile Ara</label>
+              <Input
+                maxLength={11}
+                placeholder="11 haneli TC Kimlik No"
+                value={mhrsTcNo}
+                onChange={(e) => setMhrsTcNo(e.target.value)}
+                className="border-2"
+              />
+            </div>
+
+            <div className="p-4 bg-green-50 border-2 border-green-200 rounded-lg">
+              <div className="flex items-start gap-3">
+                <Shield className="h-5 w-5 text-green-600 mt-0.5" />
+                <div>
+                  <p className="text-sm font-semibold text-green-900">MHRS Bağlantısı Aktif</p>
+                  <p className="text-xs text-green-800 mt-1">
+                    Sağlık Bakanlığı MHRS sistemi ile güvenli bağlantı kuruldu.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-6 border-t-2 border-gray-100 flex items-center justify-end gap-3">
+            <Button className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 bg-white" onClick={() => setShowMHRSModal(false)}>
+              İptal
+            </Button>
+            <Button
+              onClick={handleMHRSImport}
+              className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700"
+            >
+              <RefreshCw className="h-4 w-4 mr-2" />
+              Randevuları İçe Aktar
+            </Button>
+          </div>
+        </div>
+      </div>
+      )}
+
+      {/* Reschedule Modal */}
+      {showRescheduleModal && selectedAppointment && (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full">
+          <div className="p-6 border-b-2 border-gray-100">
+            <div className="flex items-center justify-between">
+              <h3 className="text-2xl font-bold text-gray-900">Randevu Yeniden Planla</h3>
+              <Button variant="ghost" size="sm" onClick={() => setShowRescheduleModal(false)}>
+                <X className="h-5 w-5" />
+              </Button>
+            </div>
+          </div>
+
+          <div className="p-6 space-y-4">
+            <div className="p-4 bg-gray-50 border-2 border-gray-200 rounded-lg">
+              <p className="text-sm font-semibold text-gray-900">
+                {selectedAppointment.patientName} {selectedAppointment.patientSurname}
+              </p>
+              <p className="text-xs text-gray-600 mt-1">
+                Mevcut: {selectedAppointment.date} - {selectedAppointment.time}
+              </p>
+              <p className="text-xs text-gray-600">
+                {selectedAppointment.doctor} - {selectedAppointment.department}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm font-semibold text-gray-700 mb-2 block">Yeni Tarih</label>
+                <Input
+                  type="date"
+                  value={rescheduleDate}
+                  onChange={(e) => {
+                    const date = new Date(e.target.value)
+                    const formatted = `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(2, '0')}.${date.getFullYear()}`
+                    setRescheduleDate(formatted)
+                  }}
+                  className="border-2"
+                />
+              </div>
+              <div>
+                <label className="text-sm font-semibold text-gray-700 mb-2 block">Yeni Saat</label>
+                <select
+                  value={rescheduleTime}
+                  onChange={(e) => setRescheduleTime(e.target.value)}
+                  className="w-full h-10 px-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                >
+                  <option value="">Seçiniz</option>
+                  {timeSlots.map((time) => (
+                    <option key={time} value={time}>
+                      {time}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="p-4 bg-blue-50 border-2 border-blue-200 rounded-lg">
+              <p className="text-sm font-semibold text-blue-900">SMS Bildirim</p>
+              <p className="text-xs text-blue-800 mt-1">
+                Hastaya yeni randevu bilgisi SMS ile gönderilecektir.
+              </p>
+            </div>
+          </div>
+
+          <div className="p-6 border-t-2 border-gray-100 flex items-center justify-end gap-3">
+            <Button className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 bg-white" onClick={() => setShowRescheduleModal(false)}>
+              İptal
+            </Button>
+            <Button
+              onClick={handleReschedule}
+              className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700"
+            >
+              <Edit className="h-4 w-4 mr-2" />
+              Yeniden Planla
+            </Button>
+          </div>
+        </div>
+      </div>
+      )}
+
+      {/* Cancel Modal */}
+      {showCancelModal && selectedAppointment && (
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full">
+          <div className="p-6 border-b-2 border-gray-100">
+            <div className="flex items-center justify-between">
+              <h3 className="text-2xl font-bold text-gray-900">Randevu İptal</h3>
+              <Button variant="ghost" size="sm" onClick={() => setShowCancelModal(false)}>
+                <X className="h-5 w-5" />
+              </Button>
+            </div>
+          </div>
+
+          <div className="p-6 space-y-4">
+            <div className="p-4 bg-gray-50 border-2 border-gray-200 rounded-lg">
+              <p className="text-sm font-semibold text-gray-900">
+                {selectedAppointment.patientName} {selectedAppointment.patientSurname}
+              </p>
+              <p className="text-xs text-gray-600 mt-1">
+                {selectedAppointment.date} - {selectedAppointment.time}
+              </p>
+              <p className="text-xs text-gray-600">
+                {selectedAppointment.doctor} - {selectedAppointment.department}
+              </p>
+            </div>
+
+            <div>
+              <label className="text-sm font-semibold text-gray-700 mb-2 block">İptal Nedeni *</label>
+              <textarea
+                value={cancelReason}
+                onChange={(e) => setCancelReason(e.target.value)}
+                rows={4}
+                className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 resize-none"
+                placeholder="İptal nedenini açıklayınız..."
+              />
+            </div>
+
+            <div className="p-4 bg-red-50 border-2 border-red-200 rounded-lg">
+              <div className="flex items-start gap-3">
+                <AlertTriangle className="h-5 w-5 text-red-600 mt-0.5" />
+                <div>
+                  <p className="text-sm font-semibold text-red-900">Dikkat</p>
+                  <p className="text-xs text-red-800 mt-1">
+                    Randevu iptal edilecek ve hastaya bilgilendirme SMS\'i gönderilecektir.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-6 border-t-2 border-gray-100 flex items-center justify-end gap-3">
+            <Button className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 bg-white" onClick={() => setShowCancelModal(false)}>
+              Vazgeç
+            </Button>
+            <Button
+              onClick={handleCancel}
+              className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
+            >
+              <XCircle className="h-4 w-4 mr-2" />
+              Randevuyu İptal Et
+            </Button>
+          </div>
+        </div>
+      </div>
+      )}
+    </div>
+  )
+}

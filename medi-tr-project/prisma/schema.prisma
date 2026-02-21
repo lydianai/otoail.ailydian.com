@@ -1,0 +1,18 @@
+// MEDI TR - Prisma Schema
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Kullanici {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  rol           String
+  cuzdanAdresi  String?   @unique
+  hastaDID      String?   @unique
+  olusturulmaTarihi DateTime @default(now())
+}

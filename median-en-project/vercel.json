@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "framework": "nextjs",
+  "buildCommand": "next build",
+  "devCommand": "next dev",
+  "installCommand": "npm install --legacy-peer-deps",
+  "regions": ["iad1"],
+  "env": {
+    "NEXT_PUBLIC_SITE_URL": "https://median.ailydian.com",
+    "NEXT_PUBLIC_DEFAULT_LOCALE": "en"
+  },
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_SITE_URL": "https://median.ailydian.com"
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
+    }
+  ]
+}

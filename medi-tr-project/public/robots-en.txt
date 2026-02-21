@@ -1,0 +1,57 @@
+# robots.txt for median.ailydian.com
+# Healthcare Information Management System
+
+# Allow all search engines to crawl the entire site
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://median.ailydian.com/sitemap.xml
+
+# Crawl-delay for specific bots (optional, helps prevent server overload)
+User-agent: Googlebot
+Crawl-delay: 0
+
+User-agent: Bingbot
+Crawl-delay: 0
+
+User-agent: Slurp
+Crawl-delay: 1
+
+# Block access to admin and private areas
+User-agent: *
+Disallow: /admin/
+Disallow: /api/private/
+Disallow: /dashboard/
+Disallow: /_next/
+Disallow: /static/private/
+
+# Block access to search result pages to prevent duplicate content
+Disallow: /search?
+Disallow: /*?search=
+Disallow: /*?query=
+
+# Block access to internal testing and staging paths
+Disallow: /test/
+Disallow: /staging/
+Disallow: /dev/
+
+# Allow crawling of public API documentation
+Allow: /api/docs/
+Allow: /documentation/
+
+# Block common vulnerability scanners
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SemrushBot
+Crawl-delay: 2
+
+User-agent: AhrefsBot
+Crawl-delay: 2
+
+User-agent: DotBot
+Crawl-delay: 2
+
+# Host directive (helps search engines understand the primary domain)
+Host: median.ailydian.com

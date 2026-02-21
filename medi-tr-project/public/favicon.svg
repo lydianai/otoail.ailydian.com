@@ -1,0 +1,42 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Premium Healthcare Logo - Median US -->
+  <!-- US flag inspired: Blue/purple gradient heart with star accent -->
+  <defs>
+    <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="pulseGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#93c5fd;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c4b5fd;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle with blue theme -->
+  <circle cx="32" cy="32" r="30" fill="#2563eb" opacity="0.15"/>
+
+  <!-- Heart icon with US blue/purple gradient -->
+  <path d="M32 50C32 50 12 38 12 24C12 18 16 14 21 14C25 14 28 16 32 20C36 16 39 14 43 14C48 14 52 18 52 24C52 38 32 50 32 50Z"
+        fill="url(#heartGradient)"
+        stroke="white"
+        stroke-width="2"
+        stroke-linejoin="round"/>
+
+  <!-- Pulse line overlay -->
+  <path d="M16 32 L22 32 L26 26 L30 38 L34 32 L48 32"
+        stroke="url(#pulseGradient)"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        fill="none"
+        opacity="0.9"/>
+
+  <!-- US flag inspired star accent -->
+  <path d="M32 20 L33.5 16 L35 20 L39 20 L36 23 L37.5 27 L34 24.5 L30.5 27 L32 23 L29 20 Z"
+        fill="white"
+        opacity="0.95"
+        transform="scale(0.4) translate(48, 26)"/>
+  <circle cx="32" cy="20" r="2.5" fill="white" opacity="0.9"/>
+</svg>

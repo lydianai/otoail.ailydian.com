@@ -1,0 +1,105 @@
+{
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Hata",
+    "success": "Başarılı",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "view": "Görüntüle",
+    "search": "Ara...",
+    "filter": "Filtrele",
+    "export": "Dışa Aktar",
+    "import": "İçe Aktar",
+    "print": "Yazdır"
+  },
+  "nav": {
+    "home": "Ana Sayfa",
+    "features": "Özellikler",
+    "solutions": "Çözümler",
+    "pricing": "Fiyatlandırma",
+    "contact": "İletişim",
+    "about": "Hakkımızda",
+    "login": "Giriş",
+    "register": "Kayıt Ol",
+    "dashboard": "Panel",
+    "patients": "Hastalar",
+    "appointments": "Randevular",
+    "clinical": "Klinik Notlar",
+    "emergency": "Acil Servis",
+    "inpatient": "Yatan Hastalar",
+    "laboratory": "Laboratuvar",
+    "pharmacy": "Eczane",
+    "radiology": "Radyoloji",
+    "operatingRoom": "Ameliyathane",
+    "billing": "Faturalama",
+    "staff": "Personel",
+    "inventory": "Envanter",
+    "analytics": "Analizler",
+    "quality": "Kalite",
+    "administration": "Yönetim",
+    "settings": "Ayarlar"
+  },
+  "auth": {
+    "login": "Giriş Yap",
+    "logout": "Çıkış Yap",
+    "email": "E-posta",
+    "password": "Şifre",
+    "rememberMe": "Beni Hatırla",
+    "forgotPassword": "Şifremi Unuttum",
+    "noAccount": "Hesabınız yok mu?",
+    "hasAccount": "Zaten hesabınız var mı?",
+    "signUp": "Kayıt Ol",
+    "signIn": "Giriş Yap"
+  },
+  "dashboard": {
+    "title": "Kontrol Paneli",
+    "welcome": "Hoş Geldiniz",
+    "overview": "Genel Bakış",
+    "totalPatients": "Toplam Hasta",
+    "activePatients": "Aktif Hastalar",
+    "todayAppointments": "Bugünkü Randevular",
+    "emergencyCases": "Acil Vakalar",
+    "revenue": "Gelir"
+  },
+  "patients": {
+    "title": "Hasta Yönetimi",
+    "newPatient": "Yeni Hasta",
+    "patientList": "Hasta Listesi",
+    "patientDetails": "Hasta Detayları",
+    "personalInfo": "Kişisel Bilgiler",
+    "contactInfo": "İletişim Bilgileri",
+    "medicalHistory": "Tıbbi Geçmiş",
+    "insurance": "Sigorta",
+    "firstName": "Ad",
+    "lastName": "Soyad",
+    "dateOfBirth": "Doğum Tarihi",
+    "gender": "Cinsiyet",
+    "phone": "Telefon",
+    "email": "E-posta",
+    "address": "Adres",
+    "mrn": "Hasta No",
+    "status": "Durum",
+    "active": "Aktif",
+    "inactive": "Pasif",
+    "deceased": "Vefat"
+  },
+  "marketing": {
+    "hero": {
+      "title": "Hastanenizi Dönüştürün",
+      "subtitle": "Yapay zeka destekli klinik karar destek sistemi ile eksiksiz hastane yönetim platformu. HIPAA ve KVKK uyumlu.",
+      "cta": "Ücretsiz Deneyin",
+      "demo": "Demo İsteyin"
+    },
+    "features": {
+      "title": "Eksiksiz Hastane Yönetimi",
+      "subtitle": "İhtiyacınız olan her şey tek bir birleşik platformda"
+    },
+    "cta": {
+      "title": "Bugün Başlayın",
+      "subtitle": "500+ sağlık kuruluşunun güvendiği platforma katılın",
+      "button": "Ücretsiz Deneme Başlat"
+    }
+  }
+}

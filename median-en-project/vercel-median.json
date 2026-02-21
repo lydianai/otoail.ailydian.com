@@ -1,0 +1,120 @@
+{
+  "version": 2,
+  "name": "median-ailydian",
+  "framework": "nextjs",
+  "buildCommand": "next build",
+  "devCommand": "next dev",
+  "installCommand": "npm install",
+  "regions": ["iad1"],
+  "env": {
+    "NEXT_PUBLIC_SITE_URL": "https://median.ailydian.com",
+    "NEXT_PUBLIC_DEFAULT_LOCALE": "en",
+    "NEXT_PUBLIC_DEPLOYMENT_TYPE": "en-only"
+  },
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_SITE_URL": "https://median.ailydian.com",
+      "NEXT_PUBLIC_DEFAULT_LOCALE": "en"
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "X-Deployment-Type",
+          "value": "us-healthcare"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/en"
+    },
+    {
+      "source": "/patients",
+      "destination": "/en/patients"
+    },
+    {
+      "source": "/compliance/:path*",
+      "destination": "/en/compliance/:path*"
+    },
+    {
+      "source": "/appointments",
+      "destination": "/en/appointments"
+    },
+    {
+      "source": "/billing",
+      "destination": "/en/billing"
+    },
+    {
+      "source": "/analytics",
+      "destination": "/en/analytics"
+    },
+    {
+      "source": "/staff",
+      "destination": "/en/staff"
+    },
+    {
+      "source": "/inventory",
+      "destination": "/en/inventory"
+    },
+    {
+      "source": "/laboratory",
+      "destination": "/en/laboratory"
+    },
+    {
+      "source": "/radiology",
+      "destination": "/en/radiology"
+    },
+    {
+      "source": "/pharmacy",
+      "destination": "/en/pharmacy"
+    },
+    {
+      "source": "/emergency",
+      "destination": "/en/emergency"
+    },
+    {
+      "source": "/inpatient",
+      "destination": "/en/inpatient"
+    },
+    {
+      "source": "/operating-room",
+      "destination": "/en/operating-room"
+    },
+    {
+      "source": "/quality",
+      "destination": "/en/quality"
+    },
+    {
+      "source": "/clinical",
+      "destination": "/en/clinical"
+    },
+    {
+      "source": "/settings",
+      "destination": "/en/settings"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/tr/:path*",
+      "destination": "https://medi.ailydian.com/tr/:path*",
+      "permanent": false
+    }
+  ]
+}

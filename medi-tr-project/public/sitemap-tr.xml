@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Homepage - Turkish Primary -->
+  <url>
+    <loc>https://medi.ailydian.com/</loc>
+    <lastmod>2025-12-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/tr</loc>
+    <lastmod>2025-12-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en</loc>
+    <lastmod>2025-12-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en"/>
+  </url>
+
+  <!-- Main Features -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/ozellikler</loc>
+    <lastmod>2025-12-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/features</loc>
+    <lastmod>2025-12-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features"/>
+  </url>
+
+  <!-- e-Nabız Integration - High Priority for Turkish Market -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/ozellikler/e-nabiz-entegrasyonu</loc>
+    <lastmod>2025-12-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/e-nabiz-entegrasyonu"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/e-nabiz-integration"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/features/e-nabiz-integration</loc>
+    <lastmod>2025-12-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/e-nabiz-entegrasyonu"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/e-nabiz-integration"/>
+  </url>
+
+  <!-- SGK and MEDULA Integration -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/ozellikler/sgk-entegrasyonu</loc>
+    <lastmod>2025-12-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/sgk-entegrasyonu"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/sgk-integration"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/features/sgk-integration</loc>
+    <lastmod>2025-12-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/sgk-entegrasyonu"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/sgk-integration"/>
+  </url>
+
+  <!-- MEDULA Provizyon -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/ozellikler/medula-provizyon</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/medula-provizyon"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/medula-authorization"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/features/medula-authorization</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/medula-provizyon"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/medula-authorization"/>
+  </url>
+
+  <!-- Hasta Kabul ve Yönetim Sistemi -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/ozellikler/hasta-kabul-sistemi</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/hasta-kabul-sistemi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/patient-admission"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/features/patient-admission</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/hasta-kabul-sistemi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/patient-admission"/>
+  </url>
+
+  <!-- Poliklinik Otomasyon Sistemi -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/ozellikler/poliklinik-otomasyon</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/poliklinik-otomasyon"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/outpatient-automation"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/features/outpatient-automation</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/poliklinik-otomasyon"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/outpatient-automation"/>
+  </url>
+
+  <!-- Yatan Hasta Yönetimi -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/ozellikler/yatan-hasta-yonetimi</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/yatan-hasta-yonetimi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/inpatient-management"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/features/inpatient-management</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/yatan-hasta-yonetimi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/inpatient-management"/>
+  </url>
+
+  <!-- Ameliyathane Yönetimi -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/ozellikler/ameliyathane-yonetimi</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/ameliyathane-yonetimi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/operating-room-management"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/features/operating-room-management</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/ameliyathane-yonetimi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/operating-room-management"/>
+  </url>
+
+  <!-- Acil Servis Modülü -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/ozellikler/acil-servis</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/acil-servis"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/emergency-department"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/features/emergency-department</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/acil-servis"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/emergency-department"/>
+  </url>
+
+  <!-- Laboratuvar Bilgi Sistemi -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/ozellikler/laboratuvar-bilgi-sistemi</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/laboratuvar-bilgi-sistemi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/laboratory-information-system"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/features/laboratory-information-system</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/laboratuvar-bilgi-sistemi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/laboratory-information-system"/>
+  </url>
+
+  <!-- Radyoloji ve PACS Entegrasyonu -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/ozellikler/radyoloji-pacs</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/radyoloji-pacs"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/radiology-pacs"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/features/radiology-pacs</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/radyoloji-pacs"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/radiology-pacs"/>
+  </url>
+
+  <!-- Eczane Otomasyon Sistemi -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/ozellikler/eczane-otomasyon</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/eczane-otomasyon"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/pharmacy-automation"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/features/pharmacy-automation</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/eczane-otomasyon"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/pharmacy-automation"/>
+  </url>
+
+  <!-- Stok ve Malzeme Yönetimi -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/ozellikler/stok-yonetimi</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/stok-yonetimi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/inventory-management"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/features/inventory-management</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/stok-yonetimi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/inventory-management"/>
+  </url>
+
+  <!-- Muhasebe ve Fatura Yönetimi -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/ozellikler/muhasebe-fatura</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/muhasebe-fatura"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/accounting-billing"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/features/accounting-billing</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/muhasebe-fatura"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/accounting-billing"/>
+  </url>
+
+  <!-- Randevu Yönetim Sistemi -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/ozellikler/randevu-sistemi</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/randevu-sistemi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/appointment-system"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/features/appointment-system</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/randevu-sistemi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/appointment-system"/>
+  </url>
+
+  <!-- Mobil Sağlık Uygulaması -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/ozellikler/mobil-uygulama</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/mobil-uygulama"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/mobile-application"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/features/mobile-application</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/ozellikler/mobil-uygulama"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/features/mobile-application"/>
+  </url>
+
+  <!-- Solutions - Turkish Healthcare Institutions -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/cozumler</loc>
+    <lastmod>2025-12-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/cozumler"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/solutions"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/solutions</loc>
+    <lastmod>2025-12-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/cozumler"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/solutions"/>
+  </url>
+
+  <!-- Özel Hastaneler -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/cozumler/ozel-hastaneler</loc>
+    <lastmod>2025-12-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/cozumler/ozel-hastaneler"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/solutions/private-hospitals"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/solutions/private-hospitals</loc>
+    <lastmod>2025-12-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/cozumler/ozel-hastaneler"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/solutions/private-hospitals"/>
+  </url>
+
+  <!-- Devlet Hastaneleri -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/cozumler/devlet-hastaneleri</loc>
+    <lastmod>2025-12-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/cozumler/devlet-hastaneleri"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/solutions/public-hospitals"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/solutions/public-hospitals</loc>
+    <lastmod>2025-12-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/cozumler/devlet-hastaneleri"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/solutions/public-hospitals"/>
+  </url>
+
+  <!-- Tıp Merkezleri -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/cozumler/tip-merkezleri</loc>
+    <lastmod>2025-12-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/cozumler/tip-merkezleri"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/solutions/medical-centers"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/solutions/medical-centers</loc>
+    <lastmod>2025-12-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/cozumler/tip-merkezleri"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/solutions/medical-centers"/>
+  </url>
+
+  <!-- Security & Compliance -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/guvenlik/kvkk-uyumlulugu</loc>
+    <lastmod>2025-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/guvenlik/kvkk-uyumlulugu"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/security/kvkk-compliance"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/security/kvkk-compliance</loc>
+    <lastmod>2025-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/guvenlik/kvkk-uyumlulugu"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/security/kvkk-compliance"/>
+  </url>
+
+  <!-- Resources -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/kaynaklar</loc>
+    <lastmod>2025-12-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/kaynaklar"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/resources"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/resources</loc>
+    <lastmod>2025-12-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/kaynaklar"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/resources"/>
+  </url>
+
+  <!-- Blog (600 Turkish articles, 400 English articles) -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/kaynaklar/blog</loc>
+    <lastmod>2025-12-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/kaynaklar/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/resources/blog"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/resources/blog</loc>
+    <lastmod>2025-12-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/kaynaklar/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/resources/blog"/>
+  </url>
+
+  <!-- Sample Turkish Blog Articles -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/kaynaklar/blog/e-nabiz-entegrasyonu-nasil-yapilir</loc>
+    <lastmod>2025-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/tr/kaynaklar/blog/sgk-fatura-yonetimi-ipuclari</loc>
+    <lastmod>2025-12-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/tr/kaynaklar/blog/medula-provizyon-sistemi-rehberi</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Pricing -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/fiyatlandirma</loc>
+    <lastmod>2025-12-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/fiyatlandirma"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/pricing"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/pricing</loc>
+    <lastmod>2025-12-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/fiyatlandirma"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/pricing"/>
+  </url>
+
+  <!-- Contact -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/iletisim</loc>
+    <lastmod>2025-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/iletisim"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/contact"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/contact</loc>
+    <lastmod>2025-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/iletisim"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/contact"/>
+  </url>
+
+  <!-- Documentation -->
+  <url>
+    <loc>https://medi.ailydian.com/tr/dokumantasyon</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/dokumantasyon"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/documentation"/>
+  </url>
+  <url>
+    <loc>https://medi.ailydian.com/en/documentation</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://medi.ailydian.com/tr/dokumantasyon"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medi.ailydian.com/en/documentation"/>
+  </url>
+
+  <!-- Note: This sitemap represents 2650+ pages with Turkish focus -->
+  <!-- Additional URLs would include: -->
+  <!-- - 100 Turkish medical specialties (200 URLs) -->
+  <!-- - 600 Turkish blog articles (600 URLs) -->
+  <!-- - 400 English blog articles (400 URLs) -->
+  <!-- - 250 case studies (500 URLs) -->
+  <!-- - 200 integration guides (400 URLs) -->
+  <!-- - 150 user guides (300 URLs) -->
+  <!-- - 100 video tutorials (200 URLs) -->
+  <!-- - 75 FAQ items (150 URLs) -->
+  <!-- - 50 webinars (100 URLs) -->
+  <!-- All following bilingual pattern with Turkish priority -->
+
+</urlset>

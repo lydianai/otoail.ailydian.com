@@ -1,0 +1,8 @@
+.vercel
+.env*.local
+
+# Claude Agent Session State
+.claude/session-state.json
+.claude/decisions.log
+.claude/agent-handoffs.log
+.claude/quality-checks.log

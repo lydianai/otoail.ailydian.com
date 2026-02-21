@@ -1,0 +1,215 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 🎨 LYDIAN MEDI BRAND DESIGN SYSTEM */
+
+:root {
+  /* Color Palette - Premium Healthcare */
+  --primary-50: #eff6ff;
+  --primary-100: #dbeafe;
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+  --primary-900: #1e3a8a;
+
+  --accent-500: #8b5cf6;
+  --accent-600: #7c3aed;
+
+  /* Typography Scale */
+  --font-sans: var(--font-poppins), system-ui, -apple-system, sans-serif;
+  --font-heading: var(--font-poppins), system-ui, sans-serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+
+  /* Spacing */
+  --section-padding: 5rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+}
+
+@layer base {
+  /* Premium Typography */
+  html {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.7;
+    color: #1f2937;
+    background: white;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 900;
+  }
+
+  h2 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  h3 {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  /* Smooth Scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Selection Color */
+  ::selection {
+    background-color: #3b82f6;
+    color: white;
+  }
+}
+
+@layer components {
+  /* 🎯 Median Premium Components */
+
+  .btn-primary {
+    @apply px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-xl hover:shadow-2xl transition-all duration-300 hover:scale-105;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 border-2 border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-all duration-300;
+  }
+
+  .card-premium {
+    @apply bg-white rounded-2xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1;
+  }
+
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24;
+  }
+}
+
+@layer utilities {
+  /* 🎨 Median Utilities */
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-tr {
+    background: linear-gradient(135deg, #ef4444 0%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-bg {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  }
+
+  .gradient-bg-tr {
+    background: linear-gradient(135deg, #ef4444 0%, #ec4899 100%);
+  }
+
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+
+  .animate-slide-down {
+    animation: slideDown 0.3s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out;
+  }
+
+  .text-shadow-sm {
+    text-shadow: 0 1px 2px rgb(0 0 0 / 0.1);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgb(0 0 0 / 0.2);
+  }
+}
+
+/* 🎬 Premium Animations */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 📱 Mobile Optimizations */
+@media (max-width: 640px) {
+  :root {
+    --section-padding: 3rem;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+  }
+
+  h2 {
+    font-size: 1.875rem;
+  }
+}
+
+/* ⚡ Performance Optimizations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

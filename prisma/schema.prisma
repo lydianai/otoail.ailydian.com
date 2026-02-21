@@ -1,0 +1,1404 @@
+// ============================================
+// TÜRK OTO AI - Prisma Schema
+// Database: PostgreSQL (Vercel Postgres)
+// ============================================
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ==================== User & Authentication ====================
+model User {
+  id             String   @id @default(cuid())
+  email          String   @unique
+  name           String
+  phone          String?
+  hashedPassword String?
+  emailVerified  DateTime?
+  image          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  subscription   SubscriptionTier @default(FREE)
+
+  // Relations
+  accounts      Account[]
+  sessions      Session[]
+  vehicles      Vehicle[]
+  conversations Conversation[]
+  drivingScores DrivingScore[]
+  stats         UserStats[]
+  hgsInfo       HGSInfo?
+  trafficFines  TrafficFine[]
+
+  @@index([email])
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+enum SubscriptionTier {
+  FREE
+  PREMIUM
+  ENTERPRISE
+}
+
+// ==================== Vehicle ====================
+model Vehicle {
+  id             String   @id @default(cuid())
+  userId         String
+  make           String
+  model          String
+  year           Int
+  vin            String?
+  licensePlate   String   @unique
+  fuelType       FuelType
+  transmission   TransmissionType
+  engineSize     Float?
+  horsepower     Int?
+  torque         Int?
+  cylinders      Int?
+  color          String?
+  bodyType       String?
+  mileage        Int      @default(0)
+  condition      String   @default("USED")
+  previousOwners Int      @default(1)
+  serviceHistory Boolean  @default(false)
+  modifications  String?
+  notes          String?
+  obdConnected   Boolean  @default(false)
+  obdProtocol    String?
+  obdDeviceSerial String?
+
+  // Display & Dashboard Configuration
+  screenSize     Float?   // Ekran boyutu (inç)
+  screenWidth    Int?     // Ekran genişliği (px)
+  screenHeight   Int?     // Ekran yüksekliği (px)
+  screenRatio    String?  // Aspect ratio (16:9, 4:3, etc.)
+  dashboardScale Float?   @default(1.0) // Dashboard ölçekleme faktörü
+  isPortrait     Boolean  @default(false) // Dikey/yatay ekran
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  obdDevice         OBDDevice?
+  obdData           OBDData[]
+  conversations     Conversation[]
+  drivingScores     DrivingScore[]
+  maintenanceAlerts MaintenanceAlert[]
+  trafficFines      TrafficFine[]
+  mtvInfo           MTVInfo[]
+  connectivity      VehicleConnectivity?
+  remoteControl     VehicleRemoteControl?
+  realtimeStatus    VehicleRealtimeStatus?
+  trips             Trip[]
+  geofences         GeoFence[]
+
+  @@index([userId])
+  @@index([licensePlate])
+  @@map("vehicles")
+}
+
+enum FuelType {
+  GASOLINE
+  DIESEL
+  LPG
+  ELECTRIC
+  HYBRID
+  PLUGIN_HYBRID
+}
+
+enum TransmissionType {
+  MANUAL
+  AUTOMATIC
+  CVT
+  DCT
+}
+
+// ==================== OBD-II ====================
+model OBDDevice {
+  id            String   @id @default(cuid())
+  vehicleId     String   @unique
+  deviceName    String
+  macAddress    String   @unique
+  protocol      OBDProtocol @default(AUTO)
+  connected     Boolean  @default(false)
+  lastConnected DateTime?
+  samplingRate  Int      @default(100)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  vehicle Vehicle @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+
+  @@index([vehicleId])
+  @@index([macAddress])
+  @@map("obd_devices")
+}
+
+enum OBDProtocol {
+  AUTO
+  ISO_15765_4_CAN
+  ISO_15765_4_CAN_B
+  ISO_14230_4_KWP
+  ISO_9141_2
+  SAE_J1850_PWM
+  SAE_J1850_VPW
+}
+
+model OBDData {
+  id                String   @id @default(cuid())
+  vehicleId         String
+  timestamp         DateTime @default(now())
+
+  // Engine metrics
+  rpm               Float
+  speed             Float
+  engineLoad        Float
+  throttlePosition  Float
+
+  // Temperature metrics
+  coolantTemp       Float
+  intakeTemp        Float
+  oilTemp           Float?
+
+  // Fuel metrics
+  fuelLevel         Float
+  fuelConsumption   Float
+  fuelPressure      Float?
+
+  // Electrical metrics
+  batteryVoltage    Float
+
+  // Performance metrics
+  horsepower        Float?
+  torque            Float?
+
+  // Efficiency metrics
+  efficiency        Float
+  maf               Float?
+
+  // Diagnostic codes
+  dtcCodes          String[] @default([])
+
+  vehicle Vehicle @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+
+  @@index([vehicleId, timestamp])
+  @@map("obd_data")
+}
+
+// ==================== Voice Assistant ====================
+model Conversation {
+  id         String   @id @default(cuid())
+  userId     String
+  vehicleId  String?
+  startedAt  DateTime @default(now())
+  endedAt    DateTime?
+
+  // Context
+  currentLocationLat  Float?
+  currentLocationLong Float?
+  userIntent          UserIntent?
+  previousTopics      String[] @default([])
+
+  // Relations
+  user     User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vehicle  Vehicle?       @relation(fields: [vehicleId], references: [id], onDelete: SetNull)
+  messages VoiceMessage[]
+
+  @@index([userId])
+  @@index([vehicleId])
+  @@map("conversations")
+}
+
+model VoiceMessage {
+  id             String   @id @default(cuid())
+  conversationId String
+  role           MessageRole
+  content        String
+  timestamp      DateTime @default(now())
+  dialect        TurkishDialect?
+  audioUrl       String?
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId])
+  @@map("voice_messages")
+}
+
+enum MessageRole {
+  USER
+  ASSISTANT
+  SYSTEM
+}
+
+enum TurkishDialect {
+  ISTANBUL
+  ANKARA
+  IZMIR
+  KARADENIZ
+  DOGU
+  GAP
+  EGE
+}
+
+enum UserIntent {
+  DIAGNOSIS
+  NAVIGATION
+  FUEL_INFO
+  MAINTENANCE
+  TRAFFIC_INFO
+  GENERAL_QUERY
+}
+
+// ==================== Navigation ====================
+model Route {
+  id           String   @id @default(cuid())
+  userId       String
+  originLat    Float
+  originLong   Float
+  destLat      Float
+  destLong     Float
+  distance     Float
+  duration     Float
+  trafficDelay Float?
+  source       NavigationSource
+  polyline     String
+  createdAt    DateTime @default(now())
+
+  @@index([userId])
+  @@map("routes")
+}
+
+model TrafficInfo {
+  id          String   @id @default(cuid())
+  locationLat Float
+  locationLong Float
+  severity    TrafficSeverity
+  delay       Float
+  description String
+  source      NavigationSource
+  timestamp   DateTime @default(now())
+
+  @@index([locationLat, locationLong])
+  @@map("traffic_info")
+}
+
+enum NavigationSource {
+  GOOGLE_MAPS
+  YANDEX_MAPS
+  WAZE
+  COMBINED
+}
+
+enum TrafficSeverity {
+  LOW
+  MODERATE
+  HIGH
+  SEVERE
+}
+
+// ==================== Turkey Services ====================
+model HGSInfo {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  balance   Float
+  lastUpdate DateTime @default(now())
+
+  user         User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions HGSTransaction[]
+
+  @@index([userId])
+  @@map("hgs_info")
+}
+
+model HGSTransaction {
+  id        String   @id @default(cuid())
+  hgsInfoId String
+  timestamp DateTime
+  location  String
+  amount    Float
+  balance   Float
+
+  hgsInfo HGSInfo @relation(fields: [hgsInfoId], references: [id], onDelete: Cascade)
+
+  @@index([hgsInfoId])
+  @@map("hgs_transactions")
+}
+
+model TrafficFine {
+  id        String   @id @default(cuid())
+  userId    String
+  vehicleId String
+  date      DateTime
+  location  String
+  violation String
+  amount    Float
+  paid      Boolean  @default(false)
+  dueDate   DateTime
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vehicle Vehicle @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([vehicleId])
+  @@map("traffic_fines")
+}
+
+model FuelPrice {
+  id         String   @id @default(cuid())
+  city       String
+  fuelType   FuelType
+  price      Float
+  station    String
+  lastUpdate DateTime @default(now())
+
+  @@index([city, fuelType])
+  @@map("fuel_prices")
+}
+
+model MTVInfo {
+  id        String   @id @default(cuid())
+  vehicleId String
+  year      Int
+  amount    Float
+  paid      Boolean  @default(false)
+  dueDate   DateTime
+  createdAt DateTime @default(now())
+
+  vehicle Vehicle @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+
+  @@index([vehicleId])
+  @@map("mtv_info")
+}
+
+// ==================== Gamification ====================
+model DrivingScore {
+  id           String   @id @default(cuid())
+  userId       String
+  vehicleId    String
+  date         DateTime @default(now())
+
+  // Scores (0-100)
+  overall      Float
+  acceleration Float
+  braking      Float
+  cornering    Float
+  efficiency   Float
+
+  // Metrics
+  distance     Float
+  duration     Float
+  fuelSaved    Float
+
+  // Rank
+  rank         DriverRank @default(BEGINNER)
+
+  // Relations
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vehicle Vehicle @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  badges Badge[]
+
+  @@index([userId])
+  @@index([vehicleId])
+  @@index([date])
+  @@map("driving_scores")
+}
+
+model Badge {
+  id              String   @id @default(cuid())
+  drivingScoreId  String
+  name            String
+  description     String
+  icon            String
+  earnedAt        DateTime @default(now())
+  rarity          BadgeRarity
+
+  drivingScore DrivingScore @relation(fields: [drivingScoreId], references: [id], onDelete: Cascade)
+
+  @@index([drivingScoreId])
+  @@map("badges")
+}
+
+enum DriverRank {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
+  MASTER
+}
+
+enum BadgeRarity {
+  COMMON
+  RARE
+  EPIC
+  LEGENDARY
+}
+
+// ==================== Predictive Maintenance ====================
+model MaintenanceAlert {
+  id              String   @id @default(cuid())
+  vehicleId       String
+  type            MaintenanceType
+  severity        AlertSeverity
+  prediction      DateTime
+  description     String
+  recommendation  String
+  estimatedCost   Float
+  resolved        Boolean  @default(false)
+  createdAt       DateTime @default(now())
+
+  vehicle Vehicle @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+
+  @@index([vehicleId])
+  @@index([prediction])
+  @@map("maintenance_alerts")
+}
+
+enum MaintenanceType {
+  OIL_CHANGE
+  BRAKE_PADS
+  AIR_FILTER
+  SPARK_PLUGS
+  TIMING_BELT
+  BATTERY
+  COOLANT
+  TRANSMISSION_FLUID
+  TIRE_ROTATION
+  GENERAL_INSPECTION
+}
+
+enum AlertSeverity {
+  INFO
+  WARNING
+  CRITICAL
+}
+
+// ==================== Statistics ====================
+model UserStats {
+  id                String   @id @default(cuid())
+  userId            String
+  period            StatsPeriod
+  totalDistance     Float    @default(0)
+  totalDuration     Float    @default(0)
+  totalFuelConsumed Float    @default(0)
+  totalFuelSaved    Float    @default(0)
+  totalCO2Reduced   Float    @default(0)
+  averageScore      Float    @default(0)
+  badgesEarned      Int      @default(0)
+  rank              DriverRank @default(BEGINNER)
+  updatedAt         DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, period])
+  @@index([userId])
+  @@map("user_stats")
+}
+
+enum StatsPeriod {
+  DAILY
+  WEEKLY
+  MONTHLY
+  YEARLY
+  ALLTIME
+}
+
+// ==================== Vehicle Internet Connectivity ====================
+model VehicleConnectivity {
+  id               String   @id @default(cuid())
+  vehicleId        String   @unique
+
+  // Primary Connection
+  primaryProvider  ConnectivityProvider
+  primarySSID      String?
+  primaryPassword  String? // Encrypted
+  primaryAPN       String?
+
+  // Backup Connections
+  backupProvider   ConnectivityProvider?
+  backupSSID       String?
+  backupPassword   String? // Encrypted
+  backupAPN        String?
+
+  // Starlink / Satellite
+  starlinkEnabled  Boolean  @default(false)
+  starlinkDeviceId String?
+  satelliteEnabled Boolean  @default(false)
+  satelliteProvider String?
+
+  // Connection Status
+  isConnected      Boolean  @default(false)
+  currentProvider  ConnectivityProvider?
+  signalStrength   Int?     // 0-100
+  dataUsage        Float    @default(0) // MB
+  monthlyLimit     Float?   // MB
+
+  // Auto-Failover
+  autoFailover     Boolean  @default(true)
+  failoverOrder    String[] @default([]) // Priority order
+
+  lastConnected    DateTime?
+  lastDisconnected DateTime?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  vehicle          Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  connectionLogs   ConnectivityLog[]
+
+  @@index([vehicleId])
+  @@map("vehicle_connectivity")
+}
+
+enum ConnectivityProvider {
+  TURKCELL
+  VODAFONE
+  TURK_TELEKOM
+  STARLINK
+  SATELLITE_OTHER
+  WIFI_HOTSPOT
+  MOBILE_HOTSPOT
+}
+
+// Bağlantı Logları
+model ConnectivityLog {
+  id               String   @id @default(cuid())
+  connectivityId   String
+  provider         ConnectivityProvider
+  event            ConnectivityEvent
+  signalStrength   Int?
+  dataTransferred  Float?   // MB
+  errorMessage     String?
+  metadata         Json?
+  timestamp        DateTime @default(now())
+
+  connectivity     VehicleConnectivity @relation(fields: [connectivityId], references: [id], onDelete: Cascade)
+
+  @@index([connectivityId])
+  @@index([timestamp])
+  @@map("connectivity_logs")
+}
+
+enum ConnectivityEvent {
+  CONNECTED
+  DISCONNECTED
+  RECONNECTED
+  FAILOVER
+  ERROR
+  DATA_LIMIT_WARNING
+  DATA_LIMIT_REACHED
+}
+
+// ==================== Remote Vehicle Control ====================
+model VehicleRemoteControl {
+  id                String   @id @default(cuid())
+  vehicleId         String   @unique
+
+  // Remote Features Enabled
+  remoteStartEnabled Boolean @default(false)
+  remoteLockEnabled  Boolean @default(false)
+  remoteClimateEnabled Boolean @default(false)
+  remoteHornEnabled   Boolean @default(false)
+  remoteLocateEnabled Boolean @default(true)
+  remoteDiagnosticsEnabled Boolean @default(true)
+
+  // Security
+  pinRequired       Boolean @default(true)
+  pin               String? // Encrypted 4-6 digit
+  biometricEnabled  Boolean @default(false)
+
+  // Location Tracking
+  liveTrackingEnabled Boolean @default(false)
+  geoFenceEnabled   Boolean @default(false)
+  geoFenceRadius    Float?  // meters
+  geoFenceCenter    Json?   // {lat, lng}
+
+  // Notifications
+  notifyOnStart     Boolean @default(true)
+  notifyOnLock      Boolean @default(true)
+  notifyOnUnlock    Boolean @default(true)
+  notifyOnMovement  Boolean @default(true)
+  notifyOnGeoFence  Boolean @default(true)
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  vehicle           Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  commands          RemoteCommand[]
+
+  @@index([vehicleId])
+  @@map("vehicle_remote_control")
+}
+
+// Uzaktan Komut Geçmişi
+model RemoteCommand {
+  id              String   @id @default(cuid())
+  remoteControlId String
+  userId          String
+
+  command         RemoteCommandType
+  status          CommandStatus @default(PENDING)
+
+  // Request Details
+  requestedAt     DateTime @default(now())
+  requestedFrom   String?  // Device/Location
+  requestIP       String?
+
+  // Execution Details
+  executedAt      DateTime?
+  completedAt     DateTime?
+  failedAt        DateTime?
+
+  // Response
+  response        Json?
+  errorMessage    String?
+
+  // Security
+  pinVerified     Boolean @default(false)
+  biometricVerified Boolean @default(false)
+
+  remoteControl   VehicleRemoteControl @relation(fields: [remoteControlId], references: [id], onDelete: Cascade)
+
+  @@index([remoteControlId])
+  @@index([userId])
+  @@index([requestedAt])
+  @@map("remote_commands")
+}
+
+enum RemoteCommandType {
+  START_ENGINE
+  STOP_ENGINE
+  LOCK_DOORS
+  UNLOCK_DOORS
+  HORN_LIGHTS
+  LOCATE
+  CLIMATE_ON
+  CLIMATE_OFF
+  SEAT_HEAT_ON
+  SEAT_HEAT_OFF
+  DIAGNOSTICS
+  REFRESH_STATUS
+  PANIC_MODE
+}
+
+enum CommandStatus {
+  PENDING
+  SENT
+  EXECUTING
+  COMPLETED
+  FAILED
+  TIMEOUT
+  CANCELLED
+}
+
+// ==================== Real-time Vehicle Status ====================
+model VehicleRealtimeStatus {
+  id                String   @id @default(cuid())
+  vehicleId         String   @unique
+
+  // Engine & Motion
+  engineRunning     Boolean  @default(false)
+  isMoving          Boolean  @default(false)
+  speed             Float?
+
+  // Security
+  doorsLocked       Boolean  @default(false)
+  windowsOpen       Boolean  @default(false)
+  trunkOpen         Boolean  @default(false)
+  hoodOpen          Boolean  @default(false)
+  alarmActive       Boolean  @default(false)
+
+  // Location (Real-time)
+  latitude          Float?
+  longitude         Float?
+  altitude          Float?
+  heading           Float?
+  accuracy          Float?
+
+  // Climate
+  interiorTemp      Float?
+  exteriorTemp      Float?
+  climateOn         Boolean  @default(false)
+  targetTemp        Float?
+
+  // Battery & Fuel
+  batteryVoltage    Float?
+  fuelLevel         Float?
+  range             Float?
+
+  // Connectivity
+  internetConnected Boolean  @default(false)
+  signalStrength    Int?
+
+  lastUpdate        DateTime @default(now())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  vehicle           Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+
+  @@index([vehicleId])
+  @@index([lastUpdate])
+  @@map("vehicle_realtime_status")
+}
+
+// ==================== GPS Trip & Route History ====================
+model Trip {
+  id                String   @id @default(cuid())
+  vehicleId         String
+  userId            String
+
+  // Trip Info
+  startTime         DateTime
+  endTime           DateTime?
+  duration          Int?     // seconds
+  distance          Float?   // meters
+  status            TripStatus @default(IN_PROGRESS)
+
+  // Start & End Locations
+  startLatitude     Float
+  startLongitude    Float
+  startAddress      String?
+  endLatitude       Float?
+  endLongitude      Float?
+  endAddress        String?
+
+  // Trip Stats
+  maxSpeed          Float?
+  avgSpeed          Float?
+  fuelConsumed      Float?   // liters
+  fuelEfficiency    Float?   // km/L
+  co2Emissions      Float?   // kg
+
+  // Driving Quality
+  hardAccelerations Int      @default(0)
+  hardBrakes        Int      @default(0)
+  sharpTurns        Int      @default(0)
+  speedingEvents    Int      @default(0)
+  overallScore      Float?
+
+  // Route Data
+  routePoints       RoutePoint[]
+  events            TripEvent[]
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  vehicle           Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+
+  @@index([vehicleId])
+  @@index([userId])
+  @@index([startTime])
+  @@index([status])
+  @@map("trips")
+}
+
+enum TripStatus {
+  IN_PROGRESS
+  COMPLETED
+  PAUSED
+  CANCELLED
+}
+
+// GPS Route Points
+model RoutePoint {
+  id          String   @id @default(cuid())
+  tripId      String
+
+  latitude    Float
+  longitude   Float
+  altitude    Float?
+  heading     Float?
+  speed       Float?
+  accuracy    Float?
+
+  timestamp   DateTime
+
+  trip        Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+
+  @@index([tripId])
+  @@index([timestamp])
+  @@map("route_points")
+}
+
+// Trip Events (sert fren, hızlanma, vb.)
+model TripEvent {
+  id          String   @id @default(cuid())
+  tripId      String
+
+  type        TripEventType
+  severity    EventSeverity
+  description String?
+
+  latitude    Float
+  longitude   Float
+  speed       Float?
+
+  timestamp   DateTime
+
+  trip        Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+
+  @@index([tripId])
+  @@index([type])
+  @@index([timestamp])
+  @@map("trip_events")
+}
+
+enum TripEventType {
+  HARD_ACCELERATION
+  HARD_BRAKE
+  SHARP_TURN
+  SPEEDING
+  IDLE_ENGINE
+  GEOFENCE_EXIT
+  GEOFENCE_ENTER
+}
+
+enum EventSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+// Geo-Fence Definitions
+model GeoFence {
+  id          String   @id @default(cuid())
+  vehicleId   String
+  userId      String
+
+  name        String
+  description String?
+
+  // Center point
+  latitude    Float
+  longitude   Float
+  radius      Float    // meters
+
+  // Shape (future: polygon support)
+  shape       GeoFenceShape @default(CIRCLE)
+  coordinates Json?    // For polygon shapes
+
+  // Settings
+  active      Boolean  @default(true)
+  notifyOnExit Boolean @default(true)
+  notifyOnEnter Boolean @default(false)
+
+  // Schedule (opsiyonel)
+  activeFrom  DateTime?
+  activeTo    DateTime?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  vehicle     Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+
+  @@index([vehicleId])
+  @@index([userId])
+  @@index([active])
+  @@map("geofences")
+}
+
+enum GeoFenceShape {
+  CIRCLE
+  POLYGON
+  RECTANGLE
+}
+
+// ==================== Vehicle Screen Specifications Database ====================
+model VehicleScreenSpec {
+  id           String   @id @default(cuid())
+  make         String   // Marka (TOGG, BMW, Tesla, etc.)
+  model        String   // Model (T10X, 3 Series, Model 3, etc.)
+  yearStart    Int      // Başlangıç yılı
+  yearEnd      Int?     // Bitiş yılı (null = hala üretimde)
+  trim         String?  // Trim level (Sport, Luxury, etc.)
+
+  // Screen Specifications
+  screenSize   Float    // İnç cinsinden ekran boyutu
+  screenWidth  Int      // Pixel genişlik
+  screenHeight Int      // Pixel yükseklik
+  screenRatio  String   // Aspect ratio (16:9, 16:10, 4:3, etc.)
+  isPortrait   Boolean  @default(false)
+  isTouchscreen Boolean @default(true)
+
+  // Dashboard Optimization
+  recommendedScale Float  @default(1.0)  // Önerilen ölçek faktörü
+  fontSizeMultiplier Float @default(1.0) // Font boyutu çarpanı
+
+  // Additional Info
+  screenType   String?  // LCD, OLED, AMOLED, etc.
+  resolution   String?  // FHD, 4K, etc.
+  notes        String?  // Özel notlar
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([make, model])
+  @@index([make, model, yearStart, yearEnd])
+  @@map("vehicle_screen_specs")
+}
+
+// ==================== EV Battery Optimization ====================
+// Akü Sağlık Durumu Takibi
+model BatteryHealthLog {
+  id                String   @id @default(cuid())
+  vehicleId         String
+  timestamp         DateTime @default(now())
+
+  // State of Health (Sağlık Durumu)
+  soh               Float    // 0-100% (yeni akü = 100%)
+  sohChange         Float?   // Son ölçüme göre değişim
+  degradationRate   Float?   // Aylık bozulma oranı (%)
+
+  // State of Charge (Şarj Durumu)
+  soc               Float    // 0-100% (mevcut şarj)
+  socMin            Float?   // Dönem içinde minimum %
+  socMax            Float?   // Dönem içinde maximum %
+
+  // Cycle Count (Şarj Döngüsü)
+  cycleCount        Int      @default(0)
+  cycleCountChange  Int?     // Son ölçüme göre artış
+  estimatedCycles   Int?     // Tahmini toplam döngü kapasitesi
+
+  // Capacity (Kapasite)
+  currentCapacity   Float    // mAh veya kWh
+  originalCapacity  Float    // Fabrika kapasitesi
+  capacityLoss      Float?   // Kaybedilen kapasite (%)
+
+  // Temperature (Sıcaklık)
+  batteryTemp       Float?   // Celsius
+  avgTemp           Float?   // Dönem ortalaması
+  maxTemp           Float?   // Dönem maksimumu
+
+  // Voltage (Voltaj)
+  voltage           Float    // Volt
+  avgVoltage        Float?   // Dönem ortalaması
+
+  // Impedance (Direnç)
+  impedance         Float?   // Ohm (yüksek = kötü)
+  impedanceChange   Float?   // Son ölçüme göre değişim
+
+  // Estimated Lifespan (Tahmini Ömür)
+  estimatedMonths   Int?     // Kalan ömür (ay)
+  estimatedYears    Float?   // Kalan ömür (yıl)
+
+  // Health Status
+  status            BatteryHealthStatus @default(GOOD)
+  warnings          String[] @default([])
+
+  createdAt         DateTime @default(now())
+
+  @@index([vehicleId])
+  @@index([timestamp])
+  @@index([status])
+  @@map("battery_health_logs")
+}
+
+enum BatteryHealthStatus {
+  EXCELLENT    // 95-100%
+  GOOD         // 85-94%
+  FAIR         // 70-84%
+  POOR         // 50-69%
+  CRITICAL     // <50%
+}
+
+// Şarj Oturumu Takibi ve Optimizasyonu
+model ChargingSession {
+  id                String   @id @default(cuid())
+  vehicleId         String
+  userId            String
+
+  // Session Info
+  startTime         DateTime
+  endTime           DateTime?
+  duration          Int?     // dakika
+  status            ChargingStatus @default(IN_PROGRESS)
+
+  // Charge Levels
+  startSOC          Float    // Başlangıç %
+  endSOC            Float?   // Bitiş %
+  targetSOC         Float?   // Hedef % (80% önerisi)
+
+  // Energy & Cost
+  energyAdded       Float?   // kWh
+  cost              Float?   // TL
+  costPerKWh        Float?   // TL/kWh
+  savings           Float?   // Optimizasyon tasarrufu (TL)
+
+  // Location & Type
+  locationLat       Float?
+  locationLong      Float?
+  locationType      ChargingLocationType
+  chargerType       ChargerType
+  chargerPower      Float?   // kW
+
+  // Battery Conditions
+  startTemp         Float?   // Başlangıç sıcaklığı
+  endTemp           Float?   // Bitiş sıcaklığı
+  avgTemp           Float?   // Ortalama sıcaklık
+
+  // Optimization
+  optimizedBy       String?  // "AI" | "Manual" | "Scheduled"
+  wasOptimal        Boolean  @default(false)
+  optimalTime       DateTime? // Önerilen en iyi zaman
+  peakHourCharging  Boolean  @default(false) // Pahalı saatte mi şarj oldu
+
+  // Recommendations Applied
+  usedSlowCharging  Boolean  @default(false) // 80/20 kuralı uygulandı mı
+  temperatureOK     Boolean  @default(true)  // Sıcaklık uygun muydu
+
+  // Notes
+  notes             String?
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([vehicleId])
+  @@index([userId])
+  @@index([startTime])
+  @@index([status])
+  @@map("charging_sessions")
+}
+
+enum ChargingStatus {
+  IN_PROGRESS
+  COMPLETED
+  INTERRUPTED
+  ERROR
+}
+
+enum ChargingLocationType {
+  HOME
+  WORK
+  PUBLIC_STATION
+  SHOPPING_CENTER
+  HIGHWAY_STATION
+  OTHER
+}
+
+enum ChargerType {
+  LEVEL_1        // AC 220V (yavaş)
+  LEVEL_2        // AC 7-22 kW (orta)
+  DC_FAST        // DC 50+ kW (hızlı)
+  DC_ULTRA_FAST  // DC 150+ kW (ultra hızlı)
+  SUPERCHARGER   // Tesla Supercharger
+}
+
+// Rejeneratif Frenleme Analizi
+model RegenerativeBrakingLog {
+  id                String   @id @default(cuid())
+  vehicleId         String
+  tripId            String?  // Hangi yolculuk
+  timestamp         DateTime @default(now())
+
+  // Energy Recovery
+  energyRecovered   Float    // kWh
+  distance          Float    // km
+  duration          Int      // dakika
+
+  // Efficiency Metrics
+  regenEfficiency   Float    // % (0-100)
+  avgRegenPower     Float?   // kW
+  maxRegenPower     Float?   // kW
+
+  // Braking Events
+  totalBrakings     Int      @default(0)
+  regenBrakings     Int      @default(0)
+  mechanicalBrakings Int     @default(0)
+  regenRate         Float?   // % regen kullanımı
+
+  // Quality Score
+  score             Float    // 0-100
+  scoreChange       Float?   // Son oturuma göre değişim
+
+  // Comparison
+  potentialEnergy   Float?   // Potansiyel enerji kazancı
+  lostEnergy        Float?   // Mekanik frenle kaybedilen enerji
+  efficiencyGain    Float?   // % iyileştirme potansiyeli
+
+  // Range Impact
+  rangeAdded        Float?   // km (eklenen menzil)
+
+  createdAt         DateTime @default(now())
+
+  @@index([vehicleId])
+  @@index([timestamp])
+  @@index([tripId])
+  @@map("regenerative_braking_logs")
+}
+
+// Termal Yönetim Sistemi
+model ThermalManagementLog {
+  id                String   @id @default(cuid())
+  vehicleId         String
+  timestamp         DateTime @default(now())
+
+  // Battery Temperature
+  batteryTemp       Float    // Celsius
+  batteryTempMin    Float?   // Dönem minimumu
+  batteryTempMax    Float?   // Dönem maksimumu
+  batteryTempAvg    Float?   // Dönem ortalaması
+
+  // Ambient Temperature
+  ambientTemp       Float?   // Dış ortam sıcaklığı
+  cabinTemp         Float?   // Kabin sıcaklığı
+
+  // Thermal Status
+  status            ThermalStatus
+  isHeating         Boolean  @default(false)
+  isCooling         Boolean  @default(false)
+
+  // Cooling/Heating System
+  fanSpeed          Int?     // % (0-100)
+  coolantFlow       Float?   // L/min
+  coolantTemp       Float?   // Celsius
+
+  // Performance Impact
+  rangeImpact       Float?   // % menzil etkisi
+  chargingRateImpact Float?  // % şarj hızı etkisi
+  degradationRisk   Float?   // % bozulma riski
+
+  // Warnings & Recommendations
+  warnings          String[] @default([])
+  recommendations   String[] @default([])
+
+  // Energy Consumption
+  hvacEnergyUsed    Float?   // kWh (ısıtma/soğutma)
+
+  createdAt         DateTime @default(now())
+
+  @@index([vehicleId])
+  @@index([timestamp])
+  @@index([status])
+  @@map("thermal_management_logs")
+}
+
+enum ThermalStatus {
+  OPTIMAL          // 20-25°C
+  ACCEPTABLE       // 15-30°C
+  SUBOPTIMAL_COLD  // 5-15°C
+  SUBOPTIMAL_HOT   // 30-40°C
+  WARNING_COLD     // <5°C
+  WARNING_HOT      // >40°C
+  CRITICAL         // <0°C or >45°C
+}
+
+// Eko Sürüş Koçu - Performans Takibi
+model EcoDrivingSession {
+  id                String   @id @default(cuid())
+  vehicleId         String
+  userId            String
+  tripId            String?
+  timestamp         DateTime @default(now())
+
+  // Trip Basics
+  distance          Float    // km
+  duration          Int      // dakika
+  avgSpeed          Float    // km/h
+
+  // Energy Efficiency
+  energyUsed        Float    // kWh
+  energyPerKm       Float    // kWh/km
+  optimalEnergyPerKm Float?  // Optimal tüketim
+  efficiency        Float    // % (0-100)
+
+  // Driving Style Scores (0-100)
+  accelerationScore Float
+  brakingScore      Float
+  speedScore        Float
+  anticipationScore Float
+  overallScore      Float
+
+  // Events
+  harshAccelerations Int    @default(0)
+  harshBrakings     Int     @default(0)
+  speedingEvents    Int     @default(0)
+  coastingEvents    Int     @default(0) // Vites boşta gidişler
+
+  // Savings
+  energySaved       Float?   // kWh (optimal sürüşe göre)
+  costSaved         Float?   // TL
+  rangeAdded        Float?   // km (tasarruf edilen menzil)
+  co2Avoided        Float?   // kg
+
+  // Gamification
+  stars             Int      @default(0) // 0-5 yıldız
+  badges            String[] @default([])
+  achievements      String[] @default([])
+
+  // Real-time Coaching
+  tipsGiven         String[] @default([])
+  tipsFollowed      Int      @default(0)
+
+  createdAt         DateTime @default(now())
+
+  @@index([vehicleId])
+  @@index([userId])
+  @@index([timestamp])
+  @@index([overallScore])
+  @@map("eco_driving_sessions")
+}
+
+// Kümülatif Tasarruf Raporu
+model BatterySavings {
+  id                String   @id @default(cuid())
+  vehicleId         String   @unique
+  userId            String
+
+  // Toplam Tasarruflar
+  totalEnergySaved  Float    @default(0) // kWh
+  totalCostSaved    Float    @default(0) // TL
+  totalRangeAdded   Float    @default(0) // km
+  totalCO2Avoided   Float    @default(0) // kg
+
+  // Bu Hafta
+  weeklyEnergySaved Float    @default(0)
+  weeklyCostSaved   Float    @default(0)
+  weeklyRangeAdded  Float    @default(0)
+  weeklyCO2Avoided  Float    @default(0)
+
+  // Bu Ay
+  monthlyEnergySaved Float   @default(0)
+  monthlyCostSaved  Float    @default(0)
+  monthlyRangeAdded Float    @default(0)
+  monthlyCO2Avoided Float    @default(0)
+
+  // Akü Ömrü Kazancı
+  batteryLifeExtension Float  @default(0) // ay
+  cyclesAvoided     Int       @default(0) // Kaçınılan şarj döngüsü
+  degradationAvoided Float    @default(0) // % kaçınılan bozulma
+
+  // Optimize Edilmiş Şarjlar
+  optimizedCharges  Int       @default(0)
+  totalCharges      Int       @default(0)
+  optimizationRate  Float     @default(0) // %
+
+  // Son Güncellemeler
+  lastWeeklyReset   DateTime  @default(now())
+  lastMonthlyReset  DateTime  @default(now())
+
+  updatedAt         DateTime  @updatedAt
+  createdAt         DateTime  @default(now())
+
+  @@index([vehicleId])
+  @@index([userId])
+  @@map("battery_savings")
+}
+
+// Menzil Tahmin Geçmişi (AI Range Predictor)
+model RangePrediction {
+  id                String   @id @default(cuid())
+  vehicleId         String
+  timestamp         DateTime @default(now())
+
+  // Current State
+  currentSOC        Float    // Mevcut %
+  currentRange      Float    // Gösterge menzili (km)
+
+  // AI Predictions
+  predictedRange    Float    // AI tahmini (km)
+  conservativeRange Float    // Muhafazakar tahmin
+  optimisticRange   Float    // İyimser tahmin
+
+  // Factors Considered
+  batteryHealth     Float?   // SOH
+  temperature       Float?   // Dış sıcaklık
+  drivingStyle      Float?   // Sürüş skoru
+  terrain           String?  // "flat" | "hilly" | "mixed"
+  traffic           String?  // "light" | "moderate" | "heavy"
+  climate           Boolean  @default(false) // Klima kullanımı
+  passengers        Int?     // Yolcu sayısı
+  cargo             Float?   // Yük (kg)
+
+  // Accuracy Tracking
+  actualRange       Float?   // Gerçekleşen menzil (sonradan)
+  predictionAccuracy Float?  // % doğruluk
+  error             Float?   // Hata marjı (km)
+
+  // Confidence
+  confidenceLevel   Float    // % (0-100)
+  modelVersion      String?  // AI model versiyonu
+
+  createdAt         DateTime @default(now())
+
+  @@index([vehicleId])
+  @@index([timestamp])
+  @@map("range_predictions")
+}
+
+// Şarj Fiyat Tarifesi (Elektrik Fiyat Entegrasyonu)
+model ElectricityPricing {
+  id                String   @id @default(cuid())
+  provider          String   // "TEDAŞ" | "BEDAŞ" | etc.
+  region            String   // İl/Bölge
+
+  // Zamana Göre Fiyatlar
+  peakPrice         Float    // TL/kWh (pahalı saat)
+  offPeakPrice      Float    // TL/kWh (ucuz saat)
+  normalPrice       Float    // TL/kWh (normal saat)
+
+  // Zaman Aralıkları
+  peakHoursStart    Int      // Saat (0-23)
+  peakHoursEnd      Int
+  offPeakHoursStart Int
+  offPeakHoursEnd   Int
+
+  // Validity
+  validFrom         DateTime
+  validTo           DateTime?
+  isActive          Boolean  @default(true)
+
+  updatedAt         DateTime @updatedAt
+  createdAt         DateTime @default(now())
+
+  @@index([provider, region])
+  @@index([isActive])
+  @@map("electricity_pricing")
+}

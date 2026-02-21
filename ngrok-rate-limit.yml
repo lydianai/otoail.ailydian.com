@@ -1,0 +1,112 @@
+# ============================================
+# TÜRK OTO AI - ngrok Traffic Policy
+# Rate limiting configuration for public endpoints
+# ============================================
+
+on_http_request:
+  # Global API Rate Limiting
+  - name: api_rate_limit
+    expressions:
+      - req.url.path.startsWith('/api')
+    actions:
+      - type: rate-limit
+        config:
+          name: "API Rate Limit - 100 req/min per IP"
+          algorithm: sliding_window
+          capacity: 100
+          rate: 60s
+          bucket_key:
+            - conn.client_ip
+
+  # Groq AI Endpoints (Stricter limits)
+  - name: ai_rate_limit
+    expressions:
+      - req.url.path.startsWith('/api/battery/akubot')
+      - req.url.path.startsWith('/api/chat')
+      - req.url.path.startsWith('/api/voice')
+    actions:
+      - type: rate-limit
+        config:
+          name: "AI Endpoints - 20 req/min per IP"
+          algorithm: sliding_window
+          capacity: 20
+          rate: 60s
+          bucket_key:
+            - conn.client_ip
+
+  # Authentication Endpoints (Very strict)
+  - name: auth_rate_limit
+    expressions:
+      - req.url.path.startsWith('/api/auth')
+    actions:
+      - type: rate-limit
+        config:
+          name: "Auth Endpoints - 10 req/min per IP"
+          algorithm: sliding_window
+          capacity: 10
+          rate: 60s
+          bucket_key:
+            - conn.client_ip
+
+  # Battery/Health Data (Moderate limits)
+  - name: battery_rate_limit
+    expressions:
+      - req.url.path.startsWith('/api/battery')
+      - "!req.url.path.startsWith('/api/battery/akubot')"
+    actions:
+      - type: rate-limit
+        config:
+          name: "Battery Endpoints - 50 req/min per IP"
+          algorithm: sliding_window
+          capacity: 50
+          rate: 60s
+          bucket_key:
+            - conn.client_ip
+
+  # Security Headers
+  - name: security_headers
+    expressions:
+      - "true"
+    actions:
+      - type: add-headers
+        config:
+          headers:
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: DENY
+            X-XSS-Protection: "1; mode=block"
+            Strict-Transport-Security: "max-age=31536000; includeSubDomains"
+
+  # CORS Headers for API
+  - name: cors_headers
+    expressions:
+      - req.url.path.startsWith('/api')
+    actions:
+      - type: add-headers
+        config:
+          headers:
+            Access-Control-Allow-Origin: "*"
+            Access-Control-Allow-Methods: "GET, POST, PUT, DELETE, OPTIONS"
+            Access-Control-Allow-Headers: "Content-Type, Authorization"
+
+on_http_response:
+  # Add rate limit headers to response
+  - name: rate_limit_headers
+    expressions:
+      - "true"
+    actions:
+      - type: add-headers
+        config:
+          headers:
+            X-Powered-By: "Turk Oto AI"
+            X-Rate-Limit-Policy: "active"
+
+  # Compress responses
+  - name: compression
+    expressions:
+      - res.content_length > 1024
+    actions:
+      - type: compress
+        config:
+          algorithms:
+            - gzip
+            - br

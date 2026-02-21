@@ -1,0 +1,35 @@
+# Medi AI Platform - Türkiye Sağlık Bilgi Sistemi
+# medi.ailydian.com/tr
+
+User-agent: *
+Allow: /tr/
+Allow: /
+
+# Sitemap
+Sitemap: https://medi.ailydian.com/sitemap.xml
+Sitemap: https://medi.ailydian.com/tr/sitemap.xml
+
+# Google
+User-agent: Googlebot
+Crawl-delay: 0
+Allow: /tr/
+
+# Bing
+User-agent: Bingbot
+Crawl-delay: 0
+Allow: /tr/
+
+# Yandex (Türkiye için önemli)
+User-agent: YandexBot
+Crawl-delay: 1
+Allow: /tr/
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /api/private/
+Disallow: /_next/
+Disallow: /e-nabiz-sync/
+Disallow: /sgk-sync/
+Disallow: /medula-sync/
+
+Host: medi.ailydian.com

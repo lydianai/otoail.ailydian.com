@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://otoai.ailydian.com/</loc>
+    <lastmod>2025-12-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://otoai.ailydian.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://otoai.ailydian.com/en" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://otoai.ailydian.com/de" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://otoai.ailydian.com/fr" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://otoai.ailydian.com/ar" />
+  </url>
+
+  <!-- Dashboard -->
+  <url>
+    <loc>https://otoai.ailydian.com/dashboard</loc>
+    <lastmod>2025-12-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Demo Pages -->
+  <url>
+    <loc>https://otoai.ailydian.com/demo</loc>
+    <lastmod>2025-12-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://otoai.ailydian.com/beta</loc>
+    <lastmod>2025-12-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://otoai.ailydian.com/tesla-demo</loc>
+    <lastmod>2025-12-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://otoai.ailydian.com/tesla-pro</loc>
+    <lastmod>2025-12-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://otoai.ailydian.com/adas-demo</loc>
+    <lastmod>2025-12-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://otoai.ailydian.com/sesli-demo</loc>
+    <lastmod>2025-12-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://otoai.ailydian.com/ev-alarms-demo</loc>
+    <lastmod>2025-12-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Information Pages -->
+  <url>
+    <loc>https://otoai.ailydian.com/hakkimizda</loc>
+    <lastmod>2025-12-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://otoai.ailydian.com/hakkimizda" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://otoai.ailydian.com/en/about" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://otoai.ailydian.com/de/uber-uns" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://otoai.ailydian.com/fr/a-propos" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://otoai.ailydian.com/ar/about" />
+  </url>
+
+  <url>
+    <loc>https://otoai.ailydian.com/iletisim</loc>
+    <lastmod>2025-12-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://otoai.ailydian.com/iletisim" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://otoai.ailydian.com/en/contact" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://otoai.ailydian.com/de/kontakt" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://otoai.ailydian.com/fr/contact" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://otoai.ailydian.com/ar/contact" />
+  </url>
+
+  <!-- Legal Pages -->
+  <url>
+    <loc>https://otoai.ailydian.com/gizlilik</loc>
+    <lastmod>2025-12-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://otoai.ailydian.com/kvkk</loc>
+    <lastmod>2025-12-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://otoai.ailydian.com/kullanim-sartlari</loc>
+    <lastmod>2025-12-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+</urlset>

@@ -1,0 +1,80 @@
+# robots.txt for medi.ailydian.com
+# Turkish Healthcare Market - e-Nabız, SGK, KVKK Compliant System
+
+# Allow all search engines to crawl the entire site
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://medi.ailydian.com/sitemap.xml
+
+# Prioritize Turkish content for local search engines
+User-agent: Googlebot
+Crawl-delay: 0
+Allow: /tr/
+
+User-agent: Bingbot
+Crawl-delay: 0
+Allow: /tr/
+
+# Turkish search engine Yandex
+User-agent: YandexBot
+Crawl-delay: 1
+Allow: /tr/
+
+# Block access to admin and private areas
+User-agent: *
+Disallow: /admin/
+Disallow: /api/private/
+Disallow: /dashboard/
+Disallow: /_next/
+Disallow: /static/private/
+Disallow: /e-nabiz-sync/
+Disallow: /sgk-sync/
+Disallow: /medula-sync/
+
+# Block access to search result pages
+Disallow: /search?
+Disallow: /*?search=
+Disallow: /*?query=
+Disallow: /tr/arama?
+Disallow: /en/search?
+
+# Block access to internal testing and staging paths
+Disallow: /test/
+Disallow: /staging/
+Disallow: /dev/
+
+# Allow crawling of public API documentation
+Allow: /api/docs/
+Allow: /tr/dokumantasyon/
+Allow: /en/documentation/
+
+# Block patient data and KVKK protected areas
+Disallow: /patient-data/
+Disallow: /hasta-verileri/
+Disallow: /secure/
+Disallow: /private/
+
+# Block common vulnerability scanners
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SemrushBot
+Crawl-delay: 2
+
+User-agent: AhrefsBot
+Crawl-delay: 2
+
+User-agent: DotBot
+Crawl-delay: 2
+
+# Block malicious bots
+User-agent: DataForSeoBot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+# Host directive
+Host: medi.ailydian.com

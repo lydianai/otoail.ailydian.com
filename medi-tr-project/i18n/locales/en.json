@@ -1,0 +1,105 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "search": "Search...",
+    "filter": "Filter",
+    "export": "Export",
+    "import": "Import",
+    "print": "Print"
+  },
+  "nav": {
+    "home": "Home",
+    "features": "Features",
+    "solutions": "Solutions",
+    "pricing": "Pricing",
+    "contact": "Contact",
+    "about": "About",
+    "login": "Login",
+    "register": "Register",
+    "dashboard": "Dashboard",
+    "patients": "Patients",
+    "appointments": "Appointments",
+    "clinical": "Clinical Notes",
+    "emergency": "Emergency",
+    "inpatient": "Inpatient",
+    "laboratory": "Laboratory",
+    "pharmacy": "Pharmacy",
+    "radiology": "Radiology",
+    "operatingRoom": "Operating Room",
+    "billing": "Billing",
+    "staff": "Staff",
+    "inventory": "Inventory",
+    "analytics": "Analytics",
+    "quality": "Quality",
+    "administration": "Administration",
+    "settings": "Settings"
+  },
+  "auth": {
+    "login": "Log In",
+    "logout": "Log Out",
+    "email": "Email",
+    "password": "Password",
+    "rememberMe": "Remember Me",
+    "forgotPassword": "Forgot Password",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signUp": "Sign Up",
+    "signIn": "Sign In"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome",
+    "overview": "Overview",
+    "totalPatients": "Total Patients",
+    "activePatients": "Active Patients",
+    "todayAppointments": "Today's Appointments",
+    "emergencyCases": "Emergency Cases",
+    "revenue": "Revenue"
+  },
+  "patients": {
+    "title": "Patient Management",
+    "newPatient": "New Patient",
+    "patientList": "Patient List",
+    "patientDetails": "Patient Details",
+    "personalInfo": "Personal Information",
+    "contactInfo": "Contact Information",
+    "medicalHistory": "Medical History",
+    "insurance": "Insurance",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "dateOfBirth": "Date of Birth",
+    "gender": "Gender",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "mrn": "MRN",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "deceased": "Deceased"
+  },
+  "marketing": {
+    "hero": {
+      "title": "Transform Your Hospital",
+      "subtitle": "Complete hospital management platform with AI-powered clinical decision support. HIPAA & KVKK compliant.",
+      "cta": "Start Free Trial",
+      "demo": "Request Demo"
+    },
+    "features": {
+      "title": "Complete Hospital Management",
+      "subtitle": "Everything you need in one unified platform"
+    },
+    "cta": {
+      "title": "Get Started Today",
+      "subtitle": "Join 500+ healthcare facilities that trust our platform",
+      "button": "Start Free Trial"
+    }
+  }
+}

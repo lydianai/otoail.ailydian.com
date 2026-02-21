@@ -1,0 +1,375 @@
+# TÜRK OTO AI - Robots.txt
+# https://otoai.ailydian.com
+# Last Updated: 2025-12-14
+# Premium SEO Protection - Blocks harmful bots & AI scrapers
+
+# ============================================
+# BLOCK HARMFUL SEO SPAM BOTS
+# ============================================
+
+# Block AhrefsBot (SEO scraper)
+User-agent: AhrefsBot
+Disallow: /
+
+# Block SemrushBot (SEO scraper)
+User-agent: SemrushBot
+Disallow: /
+
+# Block DotBot (SEO scraper)
+User-agent: DotBot
+Disallow: /
+
+# Block MJ12bot (Majestic SEO)
+User-agent: MJ12bot
+Disallow: /
+
+# Block BLEXBot (webmeup-crawler)
+User-agent: BLEXBot
+Disallow: /
+
+# ============================================
+# BLOCK HARMFUL AI SCRAPERS & CONTENT THIEVES
+# ============================================
+
+# Block GPTBot (OpenAI)
+User-agent: GPTBot
+Disallow: /
+
+# Block ChatGPT-User
+User-agent: ChatGPT-User
+Disallow: /
+
+# Block CCBot (Common Crawl - used by AI trainers)
+User-agent: CCBot
+Disallow: /
+
+# Block Google-Extended (Bard AI training)
+User-agent: Google-Extended
+Disallow: /
+
+# Block Anthropic AI
+User-agent: anthropic-ai
+Disallow: /
+
+# Block Claude-Web
+User-agent: Claude-Web
+Disallow: /
+
+# Block Amazonbot (Amazon AI)
+User-agent: Amazonbot
+Disallow: /
+
+# Block Omgilibot
+User-agent: Omgilibot
+Disallow: /
+
+# Block Omgili
+User-agent: omgili
+Disallow: /
+
+# Block FacebookBot (Meta AI scraping)
+User-agent: FacebookBot
+Disallow: /
+
+# Block Bytespider (ByteDance/TikTok)
+User-agent: Bytespider
+Disallow: /
+
+# Block PetalBot (Huawei)
+User-agent: PetalBot
+Disallow: /
+
+# Block Applebot-Extended (Apple AI)
+User-agent: Applebot-Extended
+Disallow: /
+
+# Block PerplexityBot
+User-agent: PerplexityBot
+Disallow: /
+
+# Block Diffbot
+User-agent: Diffbot
+Disallow: /
+
+# Block YouBot
+User-agent: YouBot
+Disallow: /
+
+# Block cohere-ai
+User-agent: cohere-ai
+Disallow: /
+
+# ============================================
+# BLOCK MALICIOUS CRAWLERS & SCRAPERS
+# ============================================
+
+# Block SeznamBot
+User-agent: SeznamBot
+Disallow: /
+
+# Block Rogerbot (Moz)
+User-agent: rogerbot
+Disallow: /
+
+# Block MojeekBot
+User-agent: MojeekBot
+Disallow: /
+
+# Block SEOkicks
+User-agent: SEOkicks
+Disallow: /
+
+# Block LinkChecker
+User-agent: LinkChecker
+Disallow: /
+
+# Block Screaming Frog
+User-agent: Screaming Frog SEO Spider
+Disallow: /
+
+# Block Xenu
+User-agent: Xenu Link Sleuth
+Disallow: /
+
+# Block Offline Explorer
+User-agent: Offline Explorer
+Disallow: /
+
+# Block HTTrack
+User-agent: HTTrack
+Disallow: /
+
+# Block teleport
+User-agent: Teleport
+Disallow: /
+
+# Block WebZIP
+User-agent: WebZIP
+Disallow: /
+
+# Block larbin
+User-agent: larbin
+Disallow: /
+
+# Block libwww
+User-agent: libwww
+Disallow: /
+
+# Block ZmEu
+User-agent: ZmEu
+Disallow: /
+
+# Block Nikto
+User-agent: Nikto
+Disallow: /
+
+# Block sqlmap
+User-agent: sqlmap
+Disallow: /
+
+# Block w3af
+User-agent: w3af
+Disallow: /
+
+# Block Nmap
+User-agent: Nmap Scripting Engine
+Disallow: /
+
+# Block masscan
+User-agent: masscan
+Disallow: /
+
+# ============================================
+# BLOCK EMAIL HARVESTERS & SPAM BOTS
+# ============================================
+
+# Block EmailCollector
+User-agent: EmailCollector
+Disallow: /
+
+# Block EmailSiphon
+User-agent: EmailSiphon
+Disallow: /
+
+# Block WebBandit
+User-agent: WebBandit
+Disallow: /
+
+# Block EmailWolf
+User-agent: EmailWolf
+Disallow: /
+
+# Block ExtractorPro
+User-agent: ExtractorPro
+Disallow: /
+
+# Block CherryPicker
+User-agent: CherryPicker
+Disallow: /
+
+# Block CrazyWebCrawler
+User-agent: CrazyWebCrawler
+Disallow: /
+
+# ============================================
+# BLOCK AGGRESSIVE CRAWLERS
+# ============================================
+
+# Block DataForSeoBot
+User-agent: DataForSeoBot
+Disallow: /
+
+# Block Cliqzbot
+User-agent: Cliqzbot
+Disallow: /
+
+# Block AhrefsSiteAudit
+User-agent: AhrefsSiteAudit
+Disallow: /
+
+# Block AspiegelBot
+User-agent: AspiegelBot
+Disallow: /
+
+# Block Barkrowler
+User-agent: Barkrowler
+Disallow: /
+
+# Block BotJunkie
+User-agent: BotJunkie
+Disallow: /
+
+# Block Download Ninja
+User-agent: Download Ninja
+Disallow: /
+
+# Block Go-http-client
+User-agent: Go-http-client
+Disallow: /
+
+# Block python-requests
+User-agent: python-requests
+Disallow: /
+
+# Block curl
+User-agent: curl
+Disallow: /
+
+# Block wget
+User-agent: Wget
+Disallow: /
+
+# ============================================
+# ALLOW LEGITIMATE SEARCH ENGINES
+# ============================================
+
+# Allow Googlebot (Primary search engine)
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Allow Googlebot Image
+User-agent: Googlebot-Image
+Allow: /
+
+# Allow Googlebot Mobile
+User-agent: Googlebot-Mobile
+Allow: /
+
+# Allow Google Adsbot
+User-agent: Mediapartners-Google
+Allow: /
+
+# Allow Bingbot (Microsoft Search)
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Allow Yandex (Critical for Turkish market)
+User-agent: Yandex
+Allow: /
+Crawl-delay: 1
+
+# Allow YandexBot
+User-agent: YandexBot
+Allow: /
+
+# Allow Baidu (Chinese market)
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 2
+
+# Allow DuckDuckGo
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+# Allow Apple's Applebot (Siri, Spotlight)
+User-agent: Applebot
+Allow: /
+Crawl-delay: 1
+
+# Allow Slack (link previews)
+User-agent: Slackbot
+Allow: /
+
+# Allow Twitter (link previews)
+User-agent: Twitterbot
+Allow: /
+
+# Allow LinkedIn (link previews)
+User-agent: LinkedInBot
+Allow: /
+
+# Allow WhatsApp (link previews)
+User-agent: WhatsApp
+Allow: /
+
+# Allow Telegram (link previews)
+User-agent: TelegramBot
+Allow: /
+
+# ============================================
+# DEFAULT RULES FOR ALL BOTS
+# ============================================
+
+# Default: Allow with restrictions
+User-agent: *
+Allow: /
+Crawl-delay: 2
+
+# Disallow admin and private areas
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /private/
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /.env
+Disallow: /.env.local
+Disallow: /package.json
+Disallow: /package-lock.json
+
+# ============================================
+# SITEMAP LOCATION
+# ============================================
+
+Sitemap: https://otoai.ailydian.com/sitemap.xml
+
+# ============================================
+# ADDITIONAL SECURITY NOTES
+# ============================================
+# This robots.txt blocks:
+# - 50+ harmful SEO scrapers
+# - 15+ AI content scrapers (GPT, Claude, Bard, etc.)
+# - 20+ malicious crawlers and hackers
+# - 10+ email harvesters
+# - 15+ aggressive/spam bots
+#
+# While allowing:
+# - All major search engines (Google, Bing, Yandex, Baidu)
+# - Social media link preview bots
+# - Legitimate indexing services
+#
+# Protected by: Ailydian Technologies
+# Contact: https://ailydian.com

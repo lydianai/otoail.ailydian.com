@@ -3,8 +3,8 @@ import { getServerSession } from 'next-auth';
 import { prisma } from '@/lib/prisma';
 
 // OpenAI veya başka bir AI servisi için
-// import OpenAI from 'openai';
-// const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+// import AIClient from 'openai';
+// const aiClient = null; // AI client disabled
 
 export async function POST(req: NextRequest) {
   try {
@@ -290,8 +290,8 @@ function extractChargingQuery(query: string): { brand?: string; fastCharge?: boo
 // AI yanıt oluştur (OpenAI entegrasyonu için)
 async function generateAIResponse(query: string, context: any): Promise<string> {
   // TODO: OpenAI API entegrasyonu
-  // const completion = await openai.chat.completions.create({
-  //   model: "gpt-4",
+  // const completion = await aiClient.complete({
+  //   model: process.env.AI_MODEL,
   //   messages: [
   //     {
   //       role: "system",

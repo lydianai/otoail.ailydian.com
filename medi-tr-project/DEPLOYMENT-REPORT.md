@@ -295,7 +295,7 @@ All critical routes tested and verified:
 - Audit Logs: https://median.ailydian.com/en/compliance/ai-devices/audit
 
 ### Preview Deployment
-**https://medi-ailydian-4hr5y5rq5-emrahsardag-yandexcoms-projects.vercel.app**
+**https://medi-ailydian-4hr5y5rq5-lydianai-yandexcoms-projects.vercel.app**
 
 ---
 

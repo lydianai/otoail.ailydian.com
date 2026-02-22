@@ -12,7 +12,7 @@
 
 ```bash
 # 1. MEDIAN (EN - English Version)
-/Users/sardag/Desktop/median-en-project
+/Users/lydian/Desktop/median-en-project
 ├── TypeScript: STRICT MODE ENABLED ✅
 ├── URL: https://median.ailydian.com
 ├── Language: English (US)
@@ -20,7 +20,7 @@
 └── Status: 66 errors fixed, 109 remaining
 
 # 2. MEDI (TR - Turkish Version)
-/Users/sardag/Desktop/medi-tr-project
+/Users/lydian/Desktop/medi-tr-project
 ├── TypeScript: Need to sync with EN
 ├── URL: https://medi.ailydian.com
 ├── Language: Turkish
@@ -28,7 +28,7 @@
 └── Status: Needs same TypeScript fixes
 
 # 3. Marketing Site (Both TR & EN)
-/Users/sardag/Desktop/PROJELER/hastane\ projeleri\ tüm\ kodlar/marketing-site
+/Users/lydian/Desktop/PROJELER/hastane\ projeleri\ tüm\ kodlar/marketing-site
 └── Status: Separate marketing pages
 ```
 
@@ -39,7 +39,7 @@
 ### P0: CRITICAL (Önce bunlar - 2-3 saat)
 
 #### 1. Blockchain Client API Methods Eksik (6 hata)
-**Dosya:** `/Users/sardag/Desktop/median-en-project/lib/blockchain/client/patient-vault-client.ts`
+**Dosya:** `/Users/lydian/Desktop/median-en-project/lib/blockchain/client/patient-vault-client.ts`
 
 ```typescript
 // ❌ EKSIK METODLAR - Eklenecek:
@@ -115,13 +115,13 @@ RecordType.DIAGNOSTIC_REPORT
 #### 6. TR Project TypeScript Sync
 **Tüm düzeltmeleri TR projesine de uygula:**
 ```bash
-cd /Users/sardag/Desktop/medi-tr-project
+cd /Users/lydian/Desktop/medi-tr-project
 # Same fixes as EN project
 ```
 
 #### 7. Database Schema (Prisma)
 ```bash
-cd /Users/sardag/Desktop/median-en-project
+cd /Users/lydian/Desktop/median-en-project
 # Create prisma/schema.prisma
 ```
 
@@ -137,7 +137,7 @@ npm install next-auth @auth/prisma-adapter
 
 ### Claude.Ekip.Agent Kurulu ✅
 
-**Lokasyon:** `/Users/sardag/Desktop/median-en-project/.claude/agents/`
+**Lokasyon:** `/Users/lydian/Desktop/median-en-project/.claude/agents/`
 
 **36 Agent Aktif:**
 - MASTER-ORCHESTRATOR
@@ -152,8 +152,8 @@ npm install next-auth @auth/prisma-adapter
 **Aktivasyon:**
 ```bash
 # Agentlar otomatik yüklenir - şu dosyalar mevcut:
-/Users/sardag/Desktop/median-en-project/CLAUDE.EKIP.md
-/Users/sardag/Desktop/median-en-project/CLAUDE.EKIP.AGENT.md
+/Users/lydian/Desktop/median-en-project/CLAUDE.EKIP.md
+/Users/lydian/Desktop/median-en-project/CLAUDE.EKIP.AGENT.md
 ```
 
 ### Agent Kullanım Örnekleri
@@ -203,13 +203,13 @@ npm install next-auth @auth/prisma-adapter
 
 ### TypeScript Error Check
 ```bash
-cd /Users/sardag/Desktop/median-en-project
+cd /Users/lydian/Desktop/median-en-project
 npx tsc --noEmit 2>&1 | grep "error TS" | wc -l
 ```
 
 ### Build Test
 ```bash
-cd /Users/sardag/Desktop/median-en-project
+cd /Users/lydian/Desktop/median-en-project
 npm run build
 ```
 
@@ -232,9 +232,9 @@ cat /tmp/current-errors.txt
 ## 📝 DOKÜMANTASYON
 
 ### Mevcut Raporlar
-- `/Users/sardag/Desktop/median-en-project/TYPESCRIPT-ERRORS-REPORT.md` ✅
-- `/Users/sardag/Desktop/median-en-project/CLAUDE.EKIP.md` ✅
-- `/Users/sardag/Desktop/median-en-project/CLAUDE.EKIP.AGENT.md` ✅
+- `/Users/lydian/Desktop/median-en-project/TYPESCRIPT-ERRORS-REPORT.md` ✅
+- `/Users/lydian/Desktop/median-en-project/CLAUDE.EKIP.md` ✅
+- `/Users/lydian/Desktop/median-en-project/CLAUDE.EKIP.AGENT.md` ✅
 
 ---
 
@@ -246,11 +246,11 @@ cat /tmp/current-errors.txt
 Merhaba! Median Healthcare Platform TypeScript strict mode düzeltmelerinde kaldığım yerden devam etmek istiyorum.
 
 Dosya yolları:
-- EN Project: /Users/sardag/Desktop/median-en-project
-- TR Project: /Users/sardag/Desktop/medi-tr-project
+- EN Project: /Users/lydian/Desktop/median-en-project
+- TR Project: /Users/lydian/Desktop/medi-tr-project
 
 Lütfen şu dosyayı oku ve kaldığımız yerden devam et:
-/Users/sardag/Desktop/median-en-project/NEXT-SESSION-PROMPT.md
+/Users/lydian/Desktop/median-en-project/NEXT-SESSION-PROMPT.md
 
 Öncelik: P0 hatalarını düzelt (Blockchain API methods + undefined guards)
 ```
@@ -289,7 +289,7 @@ npx tsc --noEmit 2>&1 | grep "error TS" | wc -l
 **ADIM 5:** TR Project Sync (opsiyonel)
 ```bash
 # Aynı düzeltmeleri TR projesine de uygula
-cd /Users/sardag/Desktop/medi-tr-project
+cd /Users/lydian/Desktop/medi-tr-project
 ```
 
 ---
@@ -377,7 +377,7 @@ vercel --prod --yes
 
 ```bash
 # 1. Proje klasörüne git
-cd /Users/sardag/Desktop/median-en-project
+cd /Users/lydian/Desktop/median-en-project
 
 # 2. Dependency check
 npm list ethers
@@ -396,7 +396,7 @@ cat NEXT-SESSION-PROMPT.md
 
 **Bu promptu yeni session'da kullan:**
 ```
-/Users/sardag/Desktop/median-en-project/NEXT-SESSION-PROMPT.md dosyasını oku ve kaldığımız yerden devam et. Önce P0 hatalarını düzelt (Blockchain API + undefined guards), sonra error count'u kontrol et ve ilerle.
+/Users/lydian/Desktop/median-en-project/NEXT-SESSION-PROMPT.md dosyasını oku ve kaldığımız yerden devam et. Önce P0 hatalarını düzelt (Blockchain API + undefined guards), sonra error count'u kontrol et ve ilerle.
 
 Tüm agentlar aktif, CLAUDE.EKIP.AGENT.md kurallarına uy, production-grade kod yaz.
 ```

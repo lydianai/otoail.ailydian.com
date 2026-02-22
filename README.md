@@ -1,13 +1,49 @@
-# TurkOto - Intelligent Vehicle Assistant
+<div align="center">
 
-> Real-time OBD-II vehicle diagnostics platform with voice control, predictive maintenance, and Turkey-specific automotive services.
+# TurkOto
 
-[![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org)
-[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)](https://react.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)](https://typescriptlang.org)
-[![Socket.io](https://img.shields.io/badge/Socket.io-4-010101?logo=socket.io)](https://socket.io)
-[![Three.js](https://img.shields.io/badge/Three.js-r168-049EF4?logo=three.js)](https://threejs.org)
-[![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](LICENSE)
+<p><em>Intelligent Vehicle Assistant with Real-Time OBD-II Diagnostics and 7-Dialect Voice Control</em></p>
+
+<p>
+  <a href="#overview"><img src="https://img.shields.io/badge/Docs-Overview-blue?style=for-the-badge" alt="Overview"></a>
+  <a href="#architecture"><img src="https://img.shields.io/badge/Docs-Architecture-purple?style=for-the-badge" alt="Architecture"></a>
+  <a href="#key-features"><img src="https://img.shields.io/badge/Docs-Features-green?style=for-the-badge" alt="Features"></a>
+  <a href="#getting-started"><img src="https://img.shields.io/badge/Docs-Setup-orange?style=for-the-badge" alt="Setup"></a>
+</p>
+
+<p>
+  <img src="https://img.shields.io/badge/Status-Active-success?style=flat-square" alt="Status">
+  <img src="https://img.shields.io/badge/License-Proprietary-red?style=flat-square" alt="License">
+  <img src="https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js" alt="Next.js">
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript" alt="TypeScript">
+  <img src="https://img.shields.io/badge/OBD--II-100Hz-orange?style=flat-square" alt="OBD-II">
+  <img src="https://img.shields.io/badge/Dialects-7-green?style=flat-square" alt="Dialects">
+</p>
+
+<table>
+<tr>
+<td width="50%">
+
+**Platform Highlights**
+- Real-time OBD-II telemetry at 100Hz sampling rate
+- 7 Turkish regional dialect voice recognition
+- 30-day predictive maintenance forecasting
+- HGS/OGS toll system and fuel price integration
+
+</td>
+<td width="50%">
+
+**Technical Excellence**
+- Next.js 16 with Socket.io real-time streaming
+- Three.js 3D vehicle visualization dashboard
+- PostgreSQL + Prisma ORM with Redis caching
+- 5,000+ fault code database with repair guidance
+
+</td>
+</tr>
+</table>
+
+</div>
 
 ---
 
@@ -91,18 +127,22 @@ graph TD
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | Next.js 16 (App Router) |
-| UI Library | React 19 |
-| Language | TypeScript (strict mode) |
-| 3D Engine | Three.js + React Three Fiber |
-| Real-time | Socket.io |
-| Cache | Redis (ioredis) |
-| Database | PostgreSQL + Prisma ORM |
-| Maps | Google Maps API |
-| Auth | NextAuth.js |
-| Validation | Zod |
+<div align="center">
+
+| Layer | Technology | Badge |
+|-------|-----------|-------|
+| Framework | Next.js 16 (App Router) | ![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js) |
+| UI Library | React 19 | ![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react) |
+| Language | TypeScript (strict mode) | ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript) |
+| 3D Engine | Three.js + React Three Fiber | ![Three.js](https://img.shields.io/badge/Three.js-r168-049EF4?style=flat-square&logo=three.js) |
+| Real-time | Socket.io | ![Socket.io](https://img.shields.io/badge/Socket.io-4-010101?style=flat-square&logo=socket.io) |
+| Cache | Redis (ioredis) | ![Redis](https://img.shields.io/badge/Redis-7-DC382D?style=flat-square&logo=redis) |
+| Database | PostgreSQL + Prisma ORM | ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791?style=flat-square&logo=postgresql) |
+| Maps | Google Maps API | ![Google Maps](https://img.shields.io/badge/Google_Maps-API-4285F4?style=flat-square&logo=google-maps) |
+| Auth | NextAuth.js | ![NextAuth](https://img.shields.io/badge/NextAuth-5-purple?style=flat-square) |
+| Validation | Zod | ![Zod](https://img.shields.io/badge/Zod-3-3068B7?style=flat-square) |
+
+</div>
 
 ---
 
@@ -204,4 +244,4 @@ This software is proprietary. See [LICENSE](LICENSE) for full terms.
 ## Contact
 
 - Website: [https://www.ailydian.com](https://www.ailydian.com)
-- Email: sardagemrah@gmail.com
+- Email: [contact@ailydian.com](mailto:contact@ailydian.com)

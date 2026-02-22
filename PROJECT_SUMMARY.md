@@ -1,6 +1,6 @@
 # 🚗🔥 TÜRK OTO AI - Project Summary
 
-**Production URL:** https://turk-oto-bl5lorokz-emrahsardag-yandexcoms-projects.vercel.app
+**Production URL:** https://turk-oto-bl5lorokz-lydianai-yandexcoms-projects.vercel.app
 **Custom Domain:** otoai.ailydian.com (DNS configuration needed)
 **Status:** ✅ PRODUCTION READY & DEPLOYED
 
@@ -182,8 +182,8 @@ turk-oto-ai/
 
 **Current:**
 ```
-https://turk-oto-bl5lorokz-emrahsardag-yandexcoms-projects.vercel.app
-https://turk-oto-bl5lorokz-emrahsardag-yandexcoms-projects.vercel.app/dashboard
+https://turk-oto-bl5lorokz-lydianai-yandexcoms-projects.vercel.app
+https://turk-oto-bl5lorokz-lydianai-yandexcoms-projects.vercel.app/dashboard
 ```
 
 **Custom Domain (DNS Setup Needed):**
@@ -363,7 +363,7 @@ LyDian: "Yakıt tasarrufu için: 1) Sabit hızda git (90-110 km/h ideal),
 
 ### Local Development
 ```bash
-cd /Users/sardag/Desktop/turk-oto-ai
+cd /Users/lydian/Desktop/turk-oto-ai
 
 # Install dependencies (if needed)
 npm install
@@ -399,9 +399,9 @@ npx prisma studio
 
 ## 📞 Destek & İletişim
 
-- **Production:** https://turk-oto-bl5lorokz-emrahsardag-yandexcoms-projects.vercel.app
-- **Dashboard:** https://turk-oto-bl5lorokz-emrahsardag-yandexcoms-projects.vercel.app/dashboard
-- **Vercel Project:** https://vercel.com/emrahsardag-yandexcoms-projects/turk-oto-ai
+- **Production:** https://turk-oto-bl5lorokz-lydianai-yandexcoms-projects.vercel.app
+- **Dashboard:** https://turk-oto-bl5lorokz-lydianai-yandexcoms-projects.vercel.app/dashboard
+- **Vercel Project:** https://vercel.com/lydianai-yandexcoms-projects/turk-oto-ai
 - **Local:** http://localhost:3000
 
 ---

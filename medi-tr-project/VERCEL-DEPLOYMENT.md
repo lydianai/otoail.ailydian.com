@@ -26,7 +26,7 @@ npm i -g vercel
 
 ### 2. Proje Dizinine Git
 ```bash
-cd /Users/sardag/Desktop/global-healthcare-platform/apps/web
+cd /Users/lydian/Desktop/global-healthcare-platform/apps/web
 ```
 
 ### 3. İlk Deployment (Preview)

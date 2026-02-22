@@ -219,5 +219,5 @@ cacheManager.clear('akubot');
 ## 📞 Destek
 
 Rate limiting veya caching ile ilgili sorularınız için:
-- GitHub Issues: https://github.com/emrahsardag/turk-oto-ai/issues
+- GitHub Issues: https://github.com/lydianai/turk-oto-ai/issues
 - Email: support@turkotoai.com
